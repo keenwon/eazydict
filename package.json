@@ -1,0 +1,22 @@
+{
+  "name": "eazydict",
+  "version": "1.0.0",
+  "description": "简单易用的命令行词典",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keenwon/eazydict.git"
+  },
+  "author": {
+    "name": "keenwon",
+    "email": "semanwmj@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/keenwon/eazydict/issues"
+  },
+  "homepage": "https://github.com/keenwon/eazydict#readme"
+}
