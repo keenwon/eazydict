@@ -7,7 +7,7 @@
     "eazydict": "./bin/cli"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\""
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,9 @@
     "blessed-contrib": "^4.7.5",
     "commander": "^2.10.0",
     "eazydict-youdao": "^1.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.4.2",
+    "mocha-eslint": "^3.0.1"
   }
 }
