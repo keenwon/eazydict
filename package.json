@@ -26,7 +26,6 @@
     "blessed": "^0.1.81",
     "blessed-contrib": "^4.7.5",
     "commander": "^2.10.0",
-    "eazydict-youdao": "^1.1.0",
-    "load-modules": "^0.1.1"
+    "eazydict-youdao": "^1.1.0"
   }
 }
