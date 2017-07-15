@@ -26,8 +26,8 @@
     "chalk": "^2.0.1",
     "commander": "^2.10.0",
     "eazydict-bing": "^1.0.0-beta.4",
-    "eazydict-google": "^1.0.0-beta.5",
-    "eazydict-youdao": "^1.1.0-beta.4",
+    "eazydict-google": "^1.0.0-beta.6",
+    "eazydict-youdao": "^1.1.0-beta.7",
     "string-width": "^2.1.0",
     "unicons": "0.0.3"
   },

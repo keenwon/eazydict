@@ -29,10 +29,14 @@ function main(data) {
 
     if (item.translates.length) {
       item.translates.forEach(translate => {
-        let type = chalk.yellow(pad(translate.type, 8));
-        let trans = translate.trans;
+        if (translate.type) {
+          let type = chalk.yellow(pad(translate.type, 8));
+          let trans = translate.trans;
 
-        result.push(`    ${type} ${trans}\n`);
+          result.push(`    ${type} ${trans}\n`);
+        } else {
+          result.push(`    ${translate.trans}\n`);
+        }
       });
       result.push('\n');
     }
