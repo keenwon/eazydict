@@ -15,24 +15,28 @@ function main(data) {
     result.push(`  ${circle} ${pluginName}   ${url}\n`);
     result.push('\n');
 
-    let phoneticLine = '    ';
-    item.phonetics.forEach(phonetic => {
-      let type = chalk.red(phonetic.type);
-      let value = chalk.gray.bold(phonetic.value);
+    if (item.phonetics.length) {
+      let phoneticLine = '    ';
+      item.phonetics.forEach(phonetic => {
+        let type = chalk.red(phonetic.type);
+        let value = chalk.gray.bold(phonetic.value);
 
-      phoneticLine += `${type} ${value}  `
-    });
-    result.push(phoneticLine + '\n');
-    result.push('\n');
+        phoneticLine += `${type} ${value}  `
+      });
+      result.push(phoneticLine + '\n');
+      result.push('\n');
+    }
 
-    item.translates.forEach(translate => {
-      let type = chalk.yellow(pad(translate.type, 8));
-      let trans = translate.trans;
+    if (item.translates.length) {
+      item.translates.forEach(translate => {
+        let type = chalk.yellow(pad(translate.type, 8));
+        let trans = translate.trans;
 
-      result.push(`    ${type} ${trans}\n`);
-    });
+        result.push(`    ${type} ${trans}\n`);
+      });
+      result.push('\n');
+    }
 
-    result.push('\n');
   });
 
   return result.join('');
