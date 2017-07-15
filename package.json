@@ -23,10 +23,13 @@
   },
   "homepage": "https://github.com/keenwon/eazydict#readme",
   "dependencies": {
-    "blessed": "^0.1.81",
-    "blessed-contrib": "^4.7.5",
+    "chalk": "^2.0.1",
     "commander": "^2.10.0",
-    "eazydict-youdao": "^1.1.0"
+    "eazydict-bing": "^1.0.0-beta.4",
+    "eazydict-google": "^1.0.0-beta.5",
+    "eazydict-youdao": "^1.1.0-beta.4",
+    "string-width": "^2.1.0",
+    "unicons": "0.0.3"
   },
   "devDependencies": {
     "mocha": "^3.4.2",

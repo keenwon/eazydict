@@ -1,9 +1,19 @@
 'use strict';
 
-const youdao = require('eazydict-youdao');
+/* eslint-disable no-console */
 
-function main(keyword, options) {
-  // ...
+const plugins = require('./lib/plugins');
+const uxCli = require('./ux/cli');
+
+function main(word, options) {
+  Promise
+    .all(plugins.map(plugin => {
+      return plugin(word);
+    }))
+    .then(data => {
+      let output = uxCli(data);
+      console.log(output);
+    });
 }
 
 module.exports = main;
