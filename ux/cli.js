@@ -18,10 +18,14 @@ function main(data) {
     if (item.phonetics.length) {
       let phoneticLine = '    ';
       item.phonetics.forEach(phonetic => {
-        let type = chalk.red(phonetic.type);
         let value = chalk.gray.bold(phonetic.value);
 
-        phoneticLine += `${type} ${value}  `
+        if (phonetic.type) {
+          let type = chalk.red(phonetic.type);
+          phoneticLine += `${type} ${value}  `;
+        } else {
+          phoneticLine += `${value}  `;
+        }
       });
       result.push(phoneticLine + '\n');
       result.push('\n');
@@ -29,13 +33,13 @@ function main(data) {
 
     if (item.translates.length) {
       item.translates.forEach(translate => {
+        let trans = translate.trans;
+
         if (translate.type) {
           let type = chalk.yellow(pad(translate.type, 8));
-          let trans = translate.trans;
-
           result.push(`    ${type} ${trans}\n`);
         } else {
-          result.push(`    ${translate.trans}\n`);
+          result.push(`    ${trans}\n`);
         }
       });
       result.push('\n');
