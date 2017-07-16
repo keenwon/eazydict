@@ -12,10 +12,16 @@ function main(data) {
     let pluginName = chalk.blue.bold(item.pluginName);
     let url = chalk.black.underline(item.url);
 
+    /**
+     * 标题
+     */
     result.push(`  ${circle} ${pluginName}   ${url}\n`);
     result.push('\n');
 
-    if (item.phonetics.length) {
+    /**
+     * 音标
+     */
+    if (item.phonetics && item.phonetics.length) {
       let phoneticLine = '    ';
       item.phonetics.forEach(phonetic => {
         let value = chalk.gray.bold(phonetic.value);
@@ -31,7 +37,10 @@ function main(data) {
       result.push('\n');
     }
 
-    if (item.translates.length) {
+    /**
+     * 翻译
+     */
+    if (item.translates && item.translates.length) {
       item.translates.forEach(translate => {
         let trans = translate.trans;
 
@@ -45,6 +54,20 @@ function main(data) {
       result.push('\n');
     }
 
+    /**
+     * 例句
+     */
+    if (item.examples && item.examples.length) {
+      result.push(`    ${chalk.green('例句:')}\n`);
+
+      item.examples.forEach(example => {
+        result.push('\n');
+        result.push(`    ${chalk.green.bold('-')} ${example.from}\n`);
+        result.push(`      ${example.to}\n`);
+      });
+
+      result.push('\n');
+    }
   });
 
   return result.join('');
