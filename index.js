@@ -18,7 +18,17 @@ function main(...argus) {
       return plugin(words);
     }))
     .then(data => {
-      let output = uxCli(data);
+      let successData = [];
+
+      data.forEach(item => {
+        if (item.error.code === 0) {
+          successData.push(item);
+        } else {
+          debug(`${item.pluginName} error: ${item.error.message}`);
+        }
+      });
+
+      let output = uxCli(successData);
       console.log(output);
     });
 }
