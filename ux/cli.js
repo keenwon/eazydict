@@ -34,6 +34,7 @@ function formatExample() {
 
 function main(data) {
   let result = [''];
+  let count = 0;
 
   data.forEach(item => {
     let circle = unicons.cli('circle');
@@ -50,6 +51,7 @@ function main(data) {
     if (hasPhonetics || hasTranslates || hasExamples) {
       result.push(`  ${circle} ${pluginName}   ${url}`);
       result.push('');
+      count++;
     }
 
     /**
@@ -110,6 +112,10 @@ function main(data) {
       result.push('');
     }
   });
+
+  if (!count) {
+    result = ['没有查询到任何结果!'];
+  }
 
   return result.join('\n');
 }
