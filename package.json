@@ -24,11 +24,13 @@
   "homepage": "https://github.com/keenwon/eazydict#readme",
   "dependencies": {
     "chalk": "^2.0.1",
+    "cli-width": "^2.1.0",
     "commander": "^2.10.0",
     "debug": "^2.6.8",
     "eazydict-bing": "^1.0.0-beta.5",
     "eazydict-google": "^1.0.0-beta.7",
     "eazydict-youdao": "^1.1.0-beta.9",
+    "string-break": "^1.0.0",
     "string-width": "^2.1.0",
     "unicons": "0.0.3"
   },

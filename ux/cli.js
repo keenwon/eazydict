@@ -2,10 +2,38 @@
 
 const chalk = require('chalk');
 const unicons = require('unicons');
+const stringBreak = require('string-break');
+const cliWidth = require('cli-width');
 const { pad } = require('../lib/utils');
 
+const exampleWidth = cliWidth() - 14;
+
+/**
+ * 格式化例句
+ */
+function formatExample() {
+  let str = arguments[0];
+  let firstLineIndent;
+  let indent;
+
+  if (arguments.length === 3) {
+    firstLineIndent = arguments[1];
+    indent = arguments[2];
+  } else {
+    firstLineIndent = indent = arguments[1];
+  }
+
+  return stringBreak(str, exampleWidth)
+    .map((line, index) => {
+      return index === 0
+        ? firstLineIndent + line
+        : indent + line;
+    })
+    .join('\n');
+}
+
 function main(data) {
-  let result = ['\n'];
+  let result = [''];
 
   data.forEach(item => {
     let circle = unicons.cli('circle');
@@ -15,8 +43,8 @@ function main(data) {
     /**
      * 标题
      */
-    result.push(`  ${circle} ${pluginName}   ${url}\n`);
-    result.push('\n');
+    result.push(`  ${circle} ${pluginName}   ${url}`);
+    result.push('');
 
     /**
      * 音标
@@ -33,8 +61,8 @@ function main(data) {
           phoneticLine += `${value}  `;
         }
       });
-      result.push(phoneticLine + '\n');
-      result.push('\n');
+      result.push(phoneticLine + '');
+      result.push('');
     }
 
     /**
@@ -46,31 +74,38 @@ function main(data) {
 
         if (translate.type) {
           let type = chalk.yellow(pad(translate.type, 8));
-          result.push(`    ${type} ${trans}\n`);
+          result.push(`    ${type} ${trans}`);
         } else {
-          result.push(`    ${trans}\n`);
+          result.push(`    ${trans}`);
         }
       });
-      result.push('\n');
+      result.push('');
     }
 
     /**
      * 例句
      */
     if (item.examples && item.examples.length) {
-      result.push(`    ${chalk.green('例句:')}\n`);
+      result.push(`    ${chalk.green('例句:')}`);
 
       item.examples.forEach(example => {
-        result.push('\n');
-        result.push(`    ${chalk.green.bold('-')} ${example.from}\n`);
-        result.push(`      ${example.to}\n`);
+        let fromFirstLineIndent = `    ${chalk.yellow.bold('+')} `;
+        let toFirstLineIndent = `    ${chalk.green.bold('-')} `;
+        let indent = '      ';
+
+        let fromStr = formatExample(example.from, fromFirstLineIndent, indent);
+        let toStr = formatExample(example.to, toFirstLineIndent, indent);
+
+        result.push('');
+        result.push(fromStr);
+        result.push(toStr);
       });
 
-      result.push('\n');
+      result.push('');
     }
   });
 
-  return result.join('');
+  return result.join('\n');
 }
 
 module.exports = main;

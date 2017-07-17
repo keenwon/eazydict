@@ -30,6 +30,9 @@ function main(...argus) {
 
       let output = uxCli(successData);
       console.log(output);
+    })
+    .catch(err => {
+      console.error(err);
     });
 }
 
