@@ -40,16 +40,22 @@ function main(data) {
     let pluginName = chalk.blue.bold(item.pluginName);
     let url = chalk.black.underline(item.url);
 
+    let hasPhonetics = item.phonetics && item.phonetics.length;
+    let hasTranslates = item.translates && item.translates.length;
+    let hasExamples = item.examples && item.examples.length
+
     /**
      * 标题
      */
-    result.push(`  ${circle} ${pluginName}   ${url}`);
-    result.push('');
+    if (hasPhonetics || hasTranslates || hasExamples) {
+      result.push(`  ${circle} ${pluginName}   ${url}`);
+      result.push('');
+    }
 
     /**
      * 音标
      */
-    if (item.phonetics && item.phonetics.length) {
+    if (hasPhonetics) {
       let phoneticLine = '    ';
       item.phonetics.forEach(phonetic => {
         let value = chalk.gray.bold(phonetic.value);
@@ -68,7 +74,7 @@ function main(data) {
     /**
      * 翻译
      */
-    if (item.translates && item.translates.length) {
+    if (hasTranslates) {
       item.translates.forEach(translate => {
         let trans = translate.trans;
 
@@ -85,7 +91,7 @@ function main(data) {
     /**
      * 例句
      */
-    if (item.examples && item.examples.length) {
+    if (hasExamples) {
       result.push(`    ${chalk.green('例句:')}`);
 
       item.examples.forEach(example => {
