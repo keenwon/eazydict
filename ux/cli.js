@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-disable max-params */
+
 const chalk = require('chalk');
 const unicons = require('unicons');
 const stringBreak = require('string-break');
@@ -9,20 +11,20 @@ const { pad } = require('../lib/utils');
 const exampleWidth = cliWidth() - 14;
 
 /**
+ * 高亮关键字
+ */
+function highlight(str, words) {
+  let regexp = new RegExp(words, 'ig');
+
+  return str.replace(regexp, substr => {
+    return chalk.red(substr);
+  });
+}
+
+/**
  * 格式化例句
  */
-function formatExample() {
-  let str = arguments[0];
-  let firstLineIndent;
-  let indent;
-
-  if (arguments.length === 3) {
-    firstLineIndent = arguments[1];
-    indent = arguments[2];
-  } else {
-    firstLineIndent = indent = arguments[1];
-  }
-
+function formatExample(str, words, firstLineIndent, indent) {
   // 兼容 windows 上 git-bash 等
   if (exampleWidth <= 0) {
     return firstLineIndent + str;
@@ -30,9 +32,11 @@ function formatExample() {
 
   return stringBreak(str, exampleWidth)
     .map((line, index) => {
+      let highlightLine = highlight(line, words);
+
       return index === 0
-        ? firstLineIndent + line
-        : indent + line;
+        ? firstLineIndent + highlightLine
+        : indent + highlightLine;
     })
     .join('\n');
 }
@@ -106,8 +110,8 @@ function main(data) {
         let toFirstLineIndent = `    ${chalk.green.bold('-')} `;
         let indent = '      ';
 
-        let fromStr = formatExample(example.from, fromFirstLineIndent, indent);
-        let toStr = formatExample(example.to, toFirstLineIndent, indent);
+        let fromStr = formatExample(example.from, item.words, fromFirstLineIndent, indent);
+        let toStr = formatExample(example.to, item.words, toFirstLineIndent, indent);
 
         result.push('');
         result.push(fromStr);
