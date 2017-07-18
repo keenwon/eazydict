@@ -23,6 +23,11 @@ function formatExample() {
     firstLineIndent = indent = arguments[1];
   }
 
+  // 兼容 windows 上 git-bash 等
+  if (exampleWidth <= 0) {
+    return firstLineIndent + str;
+  }
+
   return stringBreak(str, exampleWidth)
     .map((line, index) => {
       return index === 0
