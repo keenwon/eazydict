@@ -1,4 +1,4 @@
-# 默认启用的插件
+# 启用的插件
 enable:
   - google
   - youdao
@@ -7,23 +7,31 @@ enable:
 # 彩色输出
 colorful: true
 
+# 插件设置（插件支持该项设置才有效）
 plugins:
   youdao:
-    # 重试次数
-    retries: 2
-    # 超时时间 单位毫秒
-    timeout: 5000
-    # 代理设置，支持 socks5，http，https
-    #   关闭: false
-    #   开启: socks://127.0.0.1:1080
-    proxy: false
+    retries: 2        # 重试次数
+    timeout: 5000     # 超时时间 单位毫秒
+    proxy: false      # 代理设置 关闭: false, 开启: socks://127.0.0.1:1080 (或https)
+    output:
+      examples: 2     # 是否显示例句 不显示：0, 不限: -1, 其他为设置具体条数
+      phonetics: -1   # 是否显示音标
+      translates: -1  # 是否显示翻译
 
   google:
     retries: 2
     timeout: 5000
     proxy: false
+    output:
+      examples: 2
+      phonetics: -1
+      translates: -1
 
   bing:
     retries: 2
     timeout: 5000
     proxy: false
+    output:
+      examples: 2
+      phonetics: -1
+      translates: -1
