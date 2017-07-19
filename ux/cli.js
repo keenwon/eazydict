@@ -6,9 +6,14 @@ const chalk = require('chalk');
 const unicons = require('unicons');
 const stringBreak = require('string-break');
 const cliWidth = require('cli-width');
+const config = require('../lib/config');
 const { pad } = require('../lib/utils');
 
 const exampleWidth = cliWidth() - 14;
+
+chalk.enabled = typeof config.colorful === 'boolean'
+  ? config.colorful
+  : true;
 
 /**
  * 高亮关键字

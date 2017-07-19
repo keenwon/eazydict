@@ -4,6 +4,9 @@ enable:
   - youdao
   - bing
 
+# 彩色输出
+colorful: true
+
 plugins:
   youdao:
     # 重试次数
