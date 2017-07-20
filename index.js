@@ -5,6 +5,7 @@
 const debug = require('./lib/debug');
 const plugins = require('./lib/plugins');
 const uxCli = require('./ux/cli');
+const loader = require('./ux/loader');
 const config = require('./lib/config');
 
 function main(...argus) {
@@ -19,17 +20,21 @@ function main(...argus) {
     return;
   }
 
-  Promise
-    .all(plugins.map(plugin => {
-      debug(`load plugin ${plugin} use config: %O`, config.plugins[plugin]);
+  let loadList = plugins.map(plugin => {
+    debug(`load plugin ${plugin} use config: %O`, config.plugins[plugin]);
 
-      // eslint-disable-next-line
-      return require(plugin)(words, config.plugins[plugin]);
-    }))
+    // eslint-disable-next-line
+    return require(plugin)(words, config.plugins[plugin]);
+  });
+
+  // 添加 loader
+  loadList.push(loader(words));
+
+  Promise.all(loadList)
     .then(data => {
       let successData = [];
 
-      data.forEach(item => {
+      data.slice(0, -1).forEach(item => {
         if (item.error.code === 0) {
           successData.push(item);
         } else {
