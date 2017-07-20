@@ -21,10 +21,10 @@ function main(...argus) {
 
   Promise
     .all(plugins.map(plugin => {
-      debug(`load plugin ${plugin}`);
+      debug(`load plugin ${plugin} use config: %O`, config.plugins[plugin]);
 
       // eslint-disable-next-line
-      return require(plugin)(words, config[plugin]);
+      return require(plugin)(words, config.plugins[plugin]);
     }))
     .then(data => {
       let successData = [];

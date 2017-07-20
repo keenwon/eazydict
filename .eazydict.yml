@@ -16,7 +16,7 @@ plugins:
     output:
       examples: 2     # 是否显示例句 不显示：0, 不限: -1, 其他为设置具体条数
       phonetics: -1   # 是否显示音标
-      translates: -1  # 是否显示翻译
+      translates: 4  # 是否显示翻译
 
   google:
     retries: 2
@@ -25,7 +25,7 @@ plugins:
     output:
       examples: 2
       phonetics: -1
-      translates: -1
+      translates: 4
 
   bing:
     retries: 2
@@ -34,4 +34,4 @@ plugins:
     output:
       examples: 2
       phonetics: -1
-      translates: -1
+      translates: 4
