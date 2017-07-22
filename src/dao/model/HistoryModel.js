@@ -11,6 +11,9 @@ let fields = {
     type: Sequelize.INTEGER,
     defaultValue: 1
   },
+  plugins: {
+    type: Sequelize.STRING
+  },
   output: {
     type: Sequelize.JSON
   }

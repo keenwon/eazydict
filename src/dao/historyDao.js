@@ -17,7 +17,7 @@ function create(data) {
  * 搜索
  */
 function search(words) {
-  return co(function *() {
+  return co(function* () {
     let history = yield historyModel;
 
     let data = yield history.findOne({
@@ -32,7 +32,7 @@ function search(words) {
     }
 
     let result = data
-      ? data.dataValues
+      ? data.dataValues.output
       : null;
 
     return Promise.resolve(result);

@@ -206,8 +206,8 @@
     "generator-star-spacing": [
       2,
       {
-        "before": true,
-        "after": false
+        "before": false,
+        "after": true
       }
     ],
     "no-class-assign": 2,
