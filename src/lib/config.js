@@ -22,7 +22,7 @@ let userConfig;
 try {
   userConfig = yaml.safeLoad(content);
 } catch (err) {
-  console.error(err); // eslint-disable-line no-console
+  console.error(err);
   throw new Error(`用户配置文件解析错误: ${userConfigFile}`);
 }
 

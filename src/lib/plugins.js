@@ -2,7 +2,7 @@
 
 const debug = require('./debug');
 const config = require('./config');
-const pkg = require('../package.json');
+const pkg = require('../../package.json');
 
 let plugins = [];
 const dependencies = Object.keys(pkg.dependencies)
