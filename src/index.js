@@ -22,7 +22,8 @@ function eazydict(...argus) {
   let words = argus
     .slice(0, -1)
     .map(word => word.trim())
-    .join(' ');
+    .join(' ')
+    .slice(0, 240); // 限制长度
 
   debug('words: %s', words);
   debug('options: %O', options);
