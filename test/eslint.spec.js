@@ -4,6 +4,7 @@ const lint = require('mocha-eslint');
 
 let paths = [
   'index.js',
+  'dao/**/*.js',
   'lib/**/*.js',
   'ux/**/*.js',
   'test/**/*.js'
