@@ -1,16 +1,22 @@
 'use strict';
 
 const ora = require('ora');
+let spinner;
 
-function loader(words, time = 500) {
-  const spinner = ora('Loading...').start();
-
-  return new Promise(resolve => {
-    setTimeout(() => {
-      spinner.succeed(`Look up ${words}:`);
-      resolve();
-    }, time);
-  });
+function start() {
+  spinner = ora('Loading...').start();
 }
 
-module.exports = loader;
+function success(words) {
+  spinner.succeed(`Look up "${words}":`);
+}
+
+function fail() {
+  spinner.fail();
+}
+
+module.exports = {
+  start,
+  success,
+  fail
+};

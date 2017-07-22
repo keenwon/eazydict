@@ -2,24 +2,19 @@
 
 const debug = require('./lib/debug');
 const co = require('co');
-const uxCli = require('./ux/cli');
 const local = require('./dict/local');
 const online = require('./dict/online');
 const config = require('./lib/config');
 const historyDao = require('./dao/historyDao');
+const uxCli = require('./ux/cli');
+const { start, success, fail } = require('./ux/loader');
 
 function getFromLocal(words) {
-  return local(words)
-    .catch(err => {
-      throw err;
-    });
+  return local(words);
 }
 
 function getFromOnline(words, options) {
-  return online(words, options)
-    .catch(err => {
-      throw err;
-    });
+  return online(words, options);
 }
 
 function eazydict(...argus) {
@@ -33,6 +28,8 @@ function eazydict(...argus) {
   debug('options: %O', options);
 
   co(function* () {
+    start();
+
     let output;
     let localData = yield getFromLocal(words);
 
@@ -48,7 +45,11 @@ function eazydict(...argus) {
       output = uxCli(onlineData);
     }
 
+    success(words);
     console.log(output);
+  }).catch(err => {
+    fail();
+    throw err;
   });
 }
 
