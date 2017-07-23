@@ -9,7 +9,7 @@ enable:
 #   月: M
 #   周: w
 #   天: d
-expires: '2s'
+expires: '2M'
 
 # 彩色输出
 colorful: true

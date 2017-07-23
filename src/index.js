@@ -1,30 +1,18 @@
 'use strict';
 
-const debug = require('./lib/debug');
 const co = require('co');
+const debug = require('./lib/debug');
 const local = require('./dict/local');
 const online = require('./dict/online');
 const config = require('./lib/config');
 const filter = require('./lib/filter');
-const historyDao = require('./dao/historyDao');
+const historyDao = require('./dao/HistoryDao');
 const uxCli = require('./ux/cli');
-const { start, success, fail } = require('./ux/loader');
-
-function getFromLocal(words) {
-  return local(words);
-}
-
-function getFromOnline(words, options) {
-  return online(words, options);
-}
-
-function create(data) {
-  return historyDao.create(data);
-}
-
-function update(id, data) {
-  return historyDao.update(id, data);
-}
+const {
+  start,
+  success,
+  fail
+} = require('./ux/loader');
 
 function eazydict(...argus) {
   let options = argus.slice(-1);
@@ -42,14 +30,14 @@ function eazydict(...argus) {
 
     let output;
     let outputData;
-    let localData = yield getFromLocal(words);
+    let localData = yield local(words);
 
     // 本地缓存存在，且没有过期
     if (localData && !localData.id) {
       debug('hit local cache');
       outputData = filter(localData);
     } else {
-      let onlineData = yield getFromOnline(words, options);
+      let onlineData = yield online(words, options);
       let data = {
         words,
         output: onlineData,
@@ -57,12 +45,12 @@ function eazydict(...argus) {
       };
 
       // 如果本地缓存存在，但是过期，则更新，否则创建
-      if(localData && localData.id) {
+      if (localData && localData.id) {
         debug('hit local cache, but expired');
-        yield update(localData.id, localData);
+        yield historyDao.update(localData.id, localData);
       } else {
         debug('No local cache hits');
-        yield create(data);
+        yield historyDao.create(data);
       }
 
       outputData = filter(onlineData);

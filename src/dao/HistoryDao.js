@@ -20,15 +20,18 @@ function create(data) {
  */
 function update(id, data) {
   return co(function* () {
+    // 查询原始数据
     let originData = yield _find({
       id
     });
 
+    // 修改数据
     let updateData = Object.assign({}, originData.dataValues, data, {
       count: ++originData.dataValues.count,
       cacheAt: Date.now()
     })
 
+    // 执行更新
     return yield _update(updateData, { id });
   });
 }

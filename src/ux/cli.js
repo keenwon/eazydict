@@ -128,7 +128,7 @@ function main(data) {
   });
 
   if (!count) {
-    result = ['没有查询到任何结果!'];
+    result = ['', '没有查询到任何结果!', ''];
   }
 
   return result.join('\n');

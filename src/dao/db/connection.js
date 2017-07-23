@@ -8,6 +8,7 @@ const Sequelize = require('sequelize');
 const home = os.homedir();
 const storagePath = path.join(home, '.eazydict/database.sqlite');
 
+// 确保 sqlite 数据库文件存在
 fs.ensureFileSync(storagePath);
 
 const sequelize = new Sequelize({

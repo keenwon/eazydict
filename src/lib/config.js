@@ -19,6 +19,7 @@ let content = fs.readFileSync(userConfigFile, 'utf-8');
 let config = {};
 let userConfig;
 
+// 解析 yaml
 try {
   userConfig = yaml.safeLoad(content);
 } catch (err) {

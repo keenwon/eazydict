@@ -14,6 +14,9 @@ function getCount(value) {
   return number;
 }
 
+/**
+ * 根据配置文件过滤 plugin 输出的原始数据
+ */
 function filter(outputArray) {
   if (!pluginsConfig) {
     return outputArray;

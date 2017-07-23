@@ -1,6 +1,6 @@
 'use strict';
 
-const historyDao = require('../dao/historyDao');
+const historyDao = require('../dao/HistoryDao');
 
 function local(words, options) {
   return historyDao.search(words);
