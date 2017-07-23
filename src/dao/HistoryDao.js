@@ -71,6 +71,22 @@ function search(words) {
 }
 
 /**
+ * 获取最近查询的单词列表
+ */
+function getRecentlyList(number = 10) {
+  return co(function* () {
+    let historyModel = yield new HistoryModel();
+
+    return yield historyModel.findAll({
+      limit: number,
+      order: [
+        ['updatedAt', 'DESC']
+      ]
+    })
+  });
+}
+
+/**
  * 查询
  */
 function _find(where) {
