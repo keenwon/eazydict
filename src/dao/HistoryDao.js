@@ -4,14 +4,14 @@ const co = require('co');
 const { isExpired } = require('../lib/utils');
 const config = require('../lib/config');
 const HistoryModel = require('./model/HistoryModel');
-const historyModel = new HistoryModel();
 
 /**
  * 创建记录
  */
 function create(data) {
-  return historyModel.then(history => {
-    return history.create(data);
+  return co(function* () {
+    let historyModel = yield new HistoryModel();
+    return yield historyModel.create(data);
   });
 }
 
@@ -41,7 +41,7 @@ function update(id, data) {
  */
 function search(words) {
   return co(function* () {
-    let history = yield historyModel;
+    let history = yield new HistoryModel();
     let hitCache = false;
     let result;
 
@@ -74,8 +74,10 @@ function search(words) {
  * 查询
  */
 function _find(where) {
-  return historyModel.then(history => {
-    return history.findOne({
+  return co(function* () {
+    let historyModel = yield new HistoryModel();
+
+    return yield historyModel.findOne({
       where
     });
   });
@@ -85,8 +87,10 @@ function _find(where) {
  * 更新
  */
 function _update(data, where) {
-  return historyModel.then(history => {
-    return history.update(data, {
+  return co(function* () {
+    let historyModel = yield new HistoryModel();
+
+    return yield historyModel.update(data, {
       where
     });
   });
@@ -96,8 +100,10 @@ function _update(data, where) {
  * count + 1
  */
 function _incrementCount(id) {
-  return historyModel.then(history => {
-    return history.increment('count', {
+  return co(function* () {
+    let historyModel = yield new HistoryModel();
+
+    return yield historyModel.increment('count', {
       where: {
         id
       }

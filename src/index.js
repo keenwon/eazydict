@@ -62,7 +62,7 @@ function eazydict(...argus) {
     console.log(output);
   }).catch(err => {
     fail();
-    throw err;
+    console.error(err);
   });
 }
 
