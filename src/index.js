@@ -5,6 +5,7 @@ const co = require('co');
 const local = require('./dict/local');
 const online = require('./dict/online');
 const config = require('./lib/config');
+const filter = require('./lib/filter');
 const historyDao = require('./dao/historyDao');
 const uxCli = require('./ux/cli');
 const { start, success, fail } = require('./ux/loader');
@@ -40,12 +41,13 @@ function eazydict(...argus) {
     start();
 
     let output;
+    let outputData;
     let localData = yield getFromLocal(words);
 
     // 本地缓存存在，且没有过期
     if (localData && !localData.id) {
       debug('hit local cache');
-      output = uxCli(localData);
+      outputData = filter(localData);
     } else {
       let onlineData = yield getFromOnline(words, options);
       let data = {
@@ -63,8 +65,10 @@ function eazydict(...argus) {
         yield create(data);
       }
 
-      output = uxCli(onlineData);
+      outputData = filter(onlineData);
     }
+
+    output = uxCli(outputData);
 
     success(words);
     console.log(output);
