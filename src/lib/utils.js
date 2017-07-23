@@ -3,6 +3,9 @@
 const stringWidth = require('string-width');
 const moment = require('moment');
 
+/**
+ * 根据宽度，在字符串右侧补齐空格
+ */
 exports.pad = function (str, width = 10) {
   let padChar = ' ';
   let length = stringWidth(str);
@@ -16,6 +19,9 @@ exports.pad = function (str, width = 10) {
   return `${str}${padStr}`;
 };
 
+/**
+ * 判断时间是否过期
+ */
 exports.isExpired = function (timeStr, range) {
   let now = moment();
   let cacheTime = moment(new Date(timeStr));

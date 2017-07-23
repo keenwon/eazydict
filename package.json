@@ -42,6 +42,7 @@
     "unicons": "0.0.3"
   },
   "devDependencies": {
+    "chai": "^4.1.0",
     "mocha": "^3.4.2",
     "mocha-eslint": "^3.0.1"
   }
