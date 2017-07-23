@@ -17,6 +17,14 @@ function getFromOnline(words, options) {
   return online(words, options);
 }
 
+function create(data) {
+  return historyDao.create(data);
+}
+
+function update(id, data) {
+  return historyDao.update(id, data);
+}
+
 function eazydict(...argus) {
   let options = argus.slice(-1);
   let words = argus
@@ -34,15 +42,27 @@ function eazydict(...argus) {
     let output;
     let localData = yield getFromLocal(words);
 
-    if (localData) {
+    // 本地缓存存在，且没有过期
+    if (localData && !localData.id) {
+      debug('hit local cache');
       output = uxCli(localData);
     } else {
       let onlineData = yield getFromOnline(words, options);
-      yield historyDao.create({
+      let data = {
         words,
         output: onlineData,
         plugins: JSON.stringify(config.enable)
-      });
+      };
+
+      // 如果本地缓存存在，但是过期，则更新，否则创建
+      if(localData && localData.id) {
+        debug('hit local cache, but expired');
+        yield update(localData.id, localData);
+      } else {
+        debug('No local cache hits');
+        yield create(data);
+      }
+
       output = uxCli(onlineData);
     }
 

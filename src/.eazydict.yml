@@ -4,6 +4,13 @@ enable:
   - youdao
   - bing
 
+# 缓存的时间
+#   年: y
+#   月: M
+#   周: w
+#   天: d
+expires: '2s'
+
 # 彩色输出
 colorful: true
 
