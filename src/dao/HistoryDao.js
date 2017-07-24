@@ -130,5 +130,6 @@ function _incrementCount(id) {
 module.exports = {
   create,
   update,
-  search
+  search,
+  getRecentlyList
 };

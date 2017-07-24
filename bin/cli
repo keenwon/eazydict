@@ -3,8 +3,8 @@
 'use strict';
 
 const program = require('commander');
-const eazydict = require('../index');
 const pkg = require('../package.json');
+const { eazydict } = require('../index');
 
 program
   .usage('<words ...>')
