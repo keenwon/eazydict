@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * 历史记录
+ */
+
 const co = require('co');
 const { isExpired } = require('../lib/utils');
 const config = require('../lib/config');

@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * 历史记录
+ */
+
 const Sequelize = require('sequelize');
 const connection = require('../db/connection');
 
