@@ -4,13 +4,29 @@
 
 const program = require('commander');
 const pkg = require('../package.json');
-const { eazydict } = require('../index');
+const {
+  eazydict,
+  history
+} = require('../index');
 
+/**
+ * 主程序
+ */
 program
   .usage('<words ...>')
   .description('简单易用的命令行词典 https://github.com/keenwon/eazydict')
   .version(pkg.version)
   .action(eazydict);
+
+/**
+ * 历史记录
+ */
+program
+  .command('history')
+  .alias('h')
+  .description('显示最近查询的历史记录')
+  .action(history);
+
 
 program.parse(process.argv);
 
