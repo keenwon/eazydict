@@ -67,6 +67,10 @@ program.on('--help', function () {
   console.log('    $ eazydict history');
   console.log('    $ eazydict h');
   console.log('');
+  console.log('    保存上一次查询的单词、短语到生词本：');
+  console.log('    $ eazydict save');
+  console.log('    $ eazydict s');
+  console.log('');
   console.log('    查看 EazyDict 版本信息:');
   console.log('    $ eazydict -V');
   console.log('    $ eazydict --version');
