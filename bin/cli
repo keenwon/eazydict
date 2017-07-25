@@ -6,7 +6,8 @@ const program = require('commander');
 const pkg = require('../package.json');
 const {
   eazydict,
-  history
+  history,
+  wordbook
 } = require('../index');
 
 /**
@@ -38,6 +39,17 @@ program
   .alias('h')
   .description('显示最近查询的历史记录')
   .action(history);
+
+/**
+ * 保存到生词本
+ */
+program
+  .command('save')
+  .alias('s')
+  .description('保存上一次查询的单词、短语到生词本')
+  .action(() => {
+    wordbook.save();
+  });
 
 /**
  * 自定义 help

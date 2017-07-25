@@ -12,13 +12,18 @@ function save(offset = 0) {
     let recentlyList = yield getRecentlyList(offset, 1);
 
     if (!recentlyList || !recentlyList.length) {
-      return true;
+      console.log('\n还没有查询过任何单词、短语。无法保存到生词本！\n');
+      return;
     }
 
     let data = recentlyList[0];
 
     // 保存生词
-    return yield wordBookDao.save(data.id);
+    yield wordBookDao.save(data.id);
+
+    console.log(`\n已将 "${data.words}" 保存至生词本！\n`);
+  }).catch(err => {
+    console.error(err);
   });
 }
 
