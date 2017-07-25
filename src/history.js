@@ -22,7 +22,7 @@ function historyList(list) {
 
 function history() {
   return co(function* () {
-    let data = yield getRecentlyList(pageSize);
+    let data = yield getRecentlyList(0, pageSize);
 
     if (!data || !data.length) {
       console.log('\n暂无历史记录!\n');
