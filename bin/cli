@@ -13,10 +13,22 @@ const {
  * 主程序
  */
 program
-  .usage('<words ...>')
+  .usage('<words...>')
   .description('简单易用的命令行词典 https://github.com/keenwon/eazydict')
   .version(pkg.version)
   .action(eazydict);
+
+/**
+ * 查询
+ */
+program
+  .command('lookup <words...>')
+  .alias('l')
+  .description('查询 words 的翻译')
+  .action(function (words, options) {
+    // 与主程序入参保持一致
+    eazydict(...words, options);
+  });
 
 /**
  * 历史记录

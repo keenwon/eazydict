@@ -5,7 +5,8 @@ const lint = require('mocha-eslint');
 let paths = [
   'index.js',
   'src/**/*.js',
-  'test/**/*.js'
+  'test/**/*.js',
+  'bin/cli'
 ];
 
 let options = {
