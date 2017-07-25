@@ -39,6 +39,27 @@ program
   .description('显示最近查询的历史记录')
   .action(history);
 
+/**
+ * 自定义 help
+ */
+program.on('--help', function () {
+  console.log('');
+  console.log('  Examples:');
+  console.log('');
+  console.log('    查询短语 "fly in sky"：');
+  console.log('    $ eazydict fly in sky');
+  console.log('    $ eazydict lookup fly in sky');
+  console.log('    $ eazydict l fly in sky');
+  console.log('');
+  console.log('    查看历史记录：');
+  console.log('    $ eazydict history');
+  console.log('    $ eazydict h');
+  console.log('');
+  console.log('    查看 EazyDict 版本信息:');
+  console.log('    $ eazydict -V');
+  console.log('    $ eazydict --version');
+  console.log('');
+});
 
 program.parse(process.argv);
 
