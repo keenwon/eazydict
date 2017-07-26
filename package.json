@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/keenwon/eazydict#readme",
   "dependencies": {
+    "blessed": "^0.1.81",
     "chalk": "^2.0.1",
     "cli-width": "^2.1.0",
     "co": "^4.6.0",
