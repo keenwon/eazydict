@@ -77,7 +77,7 @@ function search(words) {
 /**
  * 获取最近查询的单词列表
  */
-function getRecentlyList(offset = 0, limit = 10) {
+function getRecentList(offset = 0, limit = 10) {
   return co(function* () {
     let historyModel = yield new HistoryModel();
 
@@ -136,5 +136,5 @@ module.exports = {
   create,
   update,
   search,
-  getRecentlyList
+  getRecentList
 };

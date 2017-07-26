@@ -3,7 +3,7 @@
 const co = require('co');
 const inquirer = require('inquirer');
 const eazydict = require('./eazydict');
-const { getRecentlyList } = require('./dao/HistoryDao');
+const { getRecentList } = require('./dao/HistoryDao');
 
 let pageSize = 10;
 
@@ -22,7 +22,7 @@ function historyList(list) {
 
 function history() {
   return co(function* () {
-    let data = yield getRecentlyList(0, pageSize);
+    let data = yield getRecentList(0, pageSize);
 
     if (!data || !data.length) {
       console.log('\n暂无历史记录!\n');
