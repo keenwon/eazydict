@@ -1,6 +1,8 @@
 'use strict';
 
 const co = require('co');
+const chalk = require('chalk');
+const unicons = require('unicons');
 const { getRecentList } = require('./dao/HistoryDao');
 const wordBookDao = require('./dao/WordBookDao');
 
@@ -10,9 +12,11 @@ const wordBookDao = require('./dao/WordBookDao');
 function save(offset = 0) {
   return co(function* () {
     let recentList = yield getRecentList(offset, 1);
+    let message;
 
     if (!recentList || !recentList.length) {
-      console.log('\n还没有查询过任何单词、短语。无法保存到生词本！\n');
+      message = `${unicons.cli('cross')} 还没有查询过任何单词、短语。无法保存到生词本！`;
+      console.log(`\n  ${chalk.red(message)}\n`);
       return;
     }
 
@@ -21,7 +25,8 @@ function save(offset = 0) {
     // 保存生词
     yield wordBookDao.save(data.id);
 
-    console.log(`\n已将 "${data.words}" 保存至生词本！\n`);
+    message = `${unicons.cli('check')} 已将 "${data.words}" 保存至生词本！`;
+    console.log(`\n  ${chalk.green(message)}\n`);
   }).catch(err => {
     console.error(err);
   });
