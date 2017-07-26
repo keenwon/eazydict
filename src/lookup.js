@@ -3,7 +3,8 @@
 const debug = require('./lib/debug');
 const co = require('co');
 const filter = require('./lib/filter');
-const lookupService = require('./service/lookup')
+const notifier = require('./lib/updateNotifier');
+const lookupService = require('./service/lookup');
 const lookupCli = require('./cli/lookup');
 const {
   loadStart,
@@ -34,6 +35,8 @@ function lookup(...argus) {
 
     loadSuccess(words);
     console.log(output);
+
+    notifier();
   }).catch(err => {
     loadFail();
     console.error(err);

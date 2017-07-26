@@ -41,7 +41,8 @@
     "sqlite3": "^3.1.8",
     "string-break": "^1.0.0",
     "string-width": "^2.1.0",
-    "unicons": "0.0.3"
+    "unicons": "0.0.3",
+    "update-notifier": "^2.2.0"
   },
   "devDependencies": {
     "chai": "^4.1.0",
