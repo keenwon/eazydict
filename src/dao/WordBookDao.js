@@ -53,19 +53,13 @@ function remove(id) {
 function getAll(offset = 0, limit = 100) {
   return co(function* () {
     let wordBookModel = yield new WordBookModel();
-    let ids = yield wordBookModel.findAll({
-      attributes: [
-        'id', 'historyId', 'createdAt', 'updatedAt',
-        [sequelize.fn('COUNT', sequelize.col('id')), 'count']
-      ],
+    return yield wordBookModel.findAll({
       offset,
       limit,
       order: [
         ['id', 'DESC']
       ]
     });
-
-    console.log(ids);
   });
 }
 

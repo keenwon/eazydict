@@ -92,6 +92,21 @@ function getRecentList(offset = 0, limit = 10) {
 }
 
 /**
+ * 根据Id获取记录
+ */
+function getByIds(ids) {
+  return co(function* () {
+    let historyModel = yield new HistoryModel();
+
+    return yield historyModel.findAll({
+      where: {
+        id: ids
+      }
+    })
+  });
+}
+
+/**
  * 查询
  */
 function _find(where) {
@@ -136,5 +151,6 @@ module.exports = {
   create,
   update,
   search,
-  getRecentList
+  getRecentList,
+  getByIds
 };

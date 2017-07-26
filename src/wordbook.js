@@ -3,7 +3,7 @@
 const co = require('co');
 const chalk = require('chalk');
 const unicons = require('unicons');
-const { getRecentList } = require('./dao/HistoryDao');
+const { getRecentList, getByIds } = require('./dao/HistoryDao');
 const wordBookDao = require('./dao/WordBookDao');
 
 /**
@@ -32,6 +32,23 @@ function save(offset = 0) {
   });
 }
 
+/**
+ * 获取全部生词
+ */
+function getAll() {
+  return co(function* () {
+    let wordArray = yield wordBookDao.getAll(0, 1000);
+    let historyIds = wordArray.map(item => {
+      return item.dataValues.historyId;
+    });
+
+    let historyArray = yield getByIds(historyIds);
+  });
+}
+
 module.exports = {
-  save
+  save,
+  getAll
 };
+
+getAll();
