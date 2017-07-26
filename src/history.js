@@ -1,31 +1,22 @@
 'use strict';
 
 const co = require('co');
-const inquirer = require('inquirer');
-const eazydict = require('./eazydict');
-const { getRecentList } = require('./dao/HistoryDao');
+const chalk = require('chalk');
+const unicons = require('unicons');
+const lookup = require('./lookup');
+const historyService = require('./service/history');
+const historyCli = require('./cli/history');
 
-let pageSize = 10;
-
-function historyList(list) {
-  return inquirer.prompt({
-    type: 'list',
-    name: 'history',
-    message: '最近查询的十条历史记录，按 Enter 建查看：',
-    choices: list,
-    pageSize,
-    filter: function (answer) {
-      return answer.replace(/^[^.]+\.\s/, '');
-    }
-  });
-}
-
+/**
+ * 历史记录
+ */
 function history() {
   return co(function* () {
-    let data = yield getRecentList(0, pageSize);
+    let data = yield historyService.getHistory(10);
 
     if (!data || !data.length) {
-      console.log('\n暂无历史记录!\n');
+      console.log(`\n  ${chalk.green(unicons.cli('check') + ' 暂无历史记录!')}\n`);
+      return;
     }
 
     let list = data.map((item, i) => {
@@ -36,9 +27,11 @@ function history() {
       return `${index < 10 ? ' ' + index : index}. ${words}`;
     });
 
-    let answer = yield historyList(list);
+    let answer = yield historyCli(list);
 
-    return eazydict(answer.history, null);
+    return lookup(answer.history, null);
+  }).catch(err => {
+    console.error(err);
   });
 }
 

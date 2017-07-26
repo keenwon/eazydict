@@ -1,12 +1,13 @@
 'use strict';
 
-const debug = require('../lib/debug');
-const plugins = require('../lib/plugins');
-const uxCli = require('../ux/cli');
-const loader = require('../ux/loader');
-const config = require('../lib/config');
+const debug = require('../../lib/debug');
+const plugins = require('../../lib/plugins');
+const config = require('../../lib/config');
 
-function main(words, options) {
+/**
+ * 在线查询
+ */
+function online(words, options) {
   if (plugins && !plugins.length) {
     console.log('没有启用任何插件');
     return;
@@ -34,4 +35,4 @@ function main(words, options) {
   });
 }
 
-module.exports = main;
+module.exports = online;

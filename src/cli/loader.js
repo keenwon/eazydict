@@ -16,7 +16,7 @@ function fail() {
 }
 
 module.exports = {
-  start,
-  success,
-  fail
+  loadStart: start,
+  loadSuccess: success,
+  loadFail: fail
 };

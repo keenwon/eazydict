@@ -7,7 +7,7 @@ const fs = require('fs-extra');
 const yaml = require('js-yaml');
 
 const home = os.homedir();
-const defaultConfigFile = path.join(__dirname, '..', '.eazydict.yml');
+const defaultConfigFile = path.join(__dirname, '../..', '.eazydict.yml');
 const userConfigFile = path.join(home, '.eazydict.yml');
 
 // 创建用户配置

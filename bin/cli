@@ -5,7 +5,7 @@
 const program = require('commander');
 const pkg = require('../package.json');
 const {
-  eazydict,
+  lookup,
   history,
   wordbook
 } = require('../index');
@@ -17,7 +17,7 @@ program
   .usage('<words...>')
   .description('简单易用的命令行词典 https://github.com/keenwon/eazydict')
   .version(pkg.version)
-  .action(eazydict);
+  .action(lookup);
 
 /**
  * 查询
@@ -28,7 +28,7 @@ program
   .description('查询 words 的翻译')
   .action(function (words, options) {
     // 与主程序入参保持一致
-    eazydict(...words, options);
+    lookup(...words, options);
   });
 
 /**
