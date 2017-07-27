@@ -7,8 +7,8 @@ function start() {
   spinner = ora('Loading...').start();
 }
 
-function success(words) {
-  spinner.succeed(`Look up "${words}":`);
+function success(message = '') {
+  spinner.succeed(message);
 }
 
 function fail() {

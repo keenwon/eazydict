@@ -33,7 +33,7 @@ function lookup(...argus) {
     let outputData = filter(lookupData);
     let output = lookupCli(outputData);
 
-    loadSuccess(words);
+    loadSuccess(`Look up "${words}":`);
     console.log(output);
 
     notifier();

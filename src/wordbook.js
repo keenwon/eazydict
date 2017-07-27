@@ -5,6 +5,11 @@ const chalk = require('chalk');
 const unicons = require('unicons');
 const wordbookService = require('./service/wordbook');
 const wordbookCli = require('./cli/wordbook');
+const {
+  loadStart,
+  loadSuccess,
+  loadFail
+} = require('./cli/loader');
 
 /**
  * 保存查询过的单词到生词本
@@ -32,7 +37,16 @@ function save(offset = 0) {
  * 打开生词本
  */
 function open() {
-  getAll().then(data => wordbookCli(data));
+  loadStart();
+
+  return getAll()
+    .then(data => {
+      loadSuccess('Open Wordbook');
+      wordbookCli(data);
+    }).catch(err => {
+      loadFail();
+      console.error(err);
+    });
 }
 
 /**
