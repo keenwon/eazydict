@@ -82,6 +82,10 @@ program.on('--help', function () {
   console.log('    $ eazydict save');
   console.log('    $ eazydict s');
   console.log('');
+  console.log('    打开生词本：');
+  console.log('    $ eazydict wordbook');
+  console.log('    $ eazydict w');
+  console.log('');
   console.log('    查看 EazyDict 版本信息:');
   console.log('    $ eazydict -V');
   console.log('    $ eazydict --version');
