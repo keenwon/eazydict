@@ -34,7 +34,7 @@ function createScreen() {
  */
 function createWordBox(list) {
   return blessed.list({
-    // items: list,
+    items: list,
     keys: true,
     vi: true,
     label: ' Words ',
@@ -118,28 +118,18 @@ function main(data) {
   words = data.words;
   histories = data.histories;
 
+  let wordList = histories.map(history => {
+    return history.dataValues.words;
+  });
+
   let screen = createScreen();
-  let wordsBox = createWordBox();
+  let wordsBox = createWordBox(wordList);
   let contentBox = createContentBox();
   let statusBox = createStatusBox(words.length + 1);
 
   screen.append(wordsBox);
   screen.append(contentBox);
   screen.append(statusBox);
-
-  // 初始化数据
-  let wordList = histories.map(history => {
-    return history.dataValues.words;
-  });
-  let initLabel = histories[0].dataValues.words;
-  let initContent = lookupCli(
-    histories[0].dataValues.output,
-    contentBox.width
-  );
-
-  wordsBox.setItems(wordList);
-  contentBox.setLabel(` ${initLabel} `);
-  contentBox.setContent(initContent);
 
   // 注册事件
   wordsBox.on('select', (item, index) => {
@@ -155,6 +145,7 @@ function main(data) {
     screen.render();
   });
 
+  wordsBox.enterSelected(0);
   wordsBox.focus();
   screen.render();
 }
