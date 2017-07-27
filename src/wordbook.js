@@ -4,6 +4,7 @@ const co = require('co');
 const chalk = require('chalk');
 const unicons = require('unicons');
 const wordbookService = require('./service/wordbook');
+const wordbookCli = require('./cli/wordbook');
 
 /**
  * 保存查询过的单词到生词本
@@ -28,16 +29,20 @@ function save(offset = 0) {
 }
 
 /**
+ * 打开生词本
+ */
+function open() {
+  getAll().then(data => wordbookCli(data));
+}
+
+/**
  * 获取全部生词
  */
 function getAll() {
-  wordbookService.getAll(1000)
-    .then(data => {
-      console.log(data);
-    });
+  return wordbookService.getAll(1000);
 }
 
 module.exports = {
   save,
-  getAll
+  open
 };

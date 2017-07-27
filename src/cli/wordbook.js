@@ -1,6 +1,10 @@
 'use strict';
 
 const blessed = require('blessed');
+const lookupCli = require('./lookup');
+
+let words;
+let histories;
 
 /**
  * 创建 screen
@@ -17,18 +21,25 @@ function createScreen() {
     return process.exit(0);
   });
 
+  // 切换
+  screen.key('tab', function () {
+    screen.focusNext();
+  });
+
   return screen;
 }
 
 /**
  * 创建单词列表窗口
  */
-function createWordBox(content) {
-  return blessed.box({
+function createWordBox(list) {
+  return blessed.list({
+    // items: list,
+    keys: true,
+    vi: true,
     label: ' Words ',
     padding: 1,
     scrollable: true,
-    content,
     border: {
       type: 'line',
       fg: 'blue'
@@ -37,13 +48,19 @@ function createWordBox(content) {
     height: '95%',
     width: '25%',
     scrollbar: {
-      ch: ' ',
-      inverse: false
+      ch: ' '
     },
     style: {
+      selected: {
+        bg: 'blue'
+      },
       scrollbar: {
-        bg: 'blue',
-        fg: 'black'
+        bg: 'green'
+      },
+      focus: {
+        border: {
+          fg: 'red'
+        }
       }
     }
   });
@@ -52,12 +69,12 @@ function createWordBox(content) {
 /**
  * 创建详情窗口
  */
-function createContentBox(title, content) {
+function createContentBox() {
   return blessed.box({
-    label: ` ${title} `,
     padding: 1,
+    keys: true,
+    vi: true,
     scrollable: true,
-    content,
     border: {
       type: 'line',
       fg: 'blue'
@@ -72,8 +89,12 @@ function createContentBox(title, content) {
     },
     style: {
       scrollbar: {
-        bg: 'blue',
-        fg: 'black'
+        bg: 'green'
+      },
+      focus: {
+        border: {
+          fg: 'red'
+        }
       }
     }
   });
@@ -82,10 +103,10 @@ function createContentBox(title, content) {
 /**
  * 创建状态栏
  */
-function createStatusBox() {
+function createStatusBox(count) {
   return blessed.text({
     // eslint-disable-next-line max-len
-    content: '  共: 1237834 条 | 退出: Esc、Ctrl-C、q {|} {cyan-fg}{bold} Made With Heart by Keenwon{/bold}  ',
+    content: `  共: ${count} 条 | 退出: Esc、Ctrl-C、q {|} {cyan-fg}{bold} Made With Heart by Keenwon{/bold}  `,
     valign: 'middle',
     top: '95%',
     height: '5%',
@@ -93,19 +114,49 @@ function createStatusBox() {
   });
 }
 
-function main() {
+function main(data) {
+  words = data.words;
+  histories = data.histories;
+
   let screen = createScreen();
   let wordsBox = createWordBox();
   let contentBox = createContentBox();
-  let statusBox = createStatusBox();
+  let statusBox = createStatusBox(words.length + 1);
 
   screen.append(wordsBox);
   screen.append(contentBox);
   screen.append(statusBox);
 
+  // 初始化数据
+  let wordList = histories.map(history => {
+    return history.dataValues.words;
+  });
+  let initLabel = histories[0].dataValues.words;
+  let initContent = lookupCli(
+    histories[0].dataValues.output,
+    contentBox.width
+  );
+
+  wordsBox.setItems(wordList);
+  contentBox.setLabel(` ${initLabel} `);
+  contentBox.setContent(initContent);
+
+  // 注册事件
+  wordsBox.on('select', (item, index) => {
+    let label = item.getText();
+    let content = lookupCli(
+      histories[index].dataValues.output,
+      contentBox.width
+    );
+
+    contentBox.setLabel(` ${label} `);
+    contentBox.setContent(content);
+
+    screen.render();
+  });
+
+  wordsBox.focus();
   screen.render();
 }
 
 module.exports = main;
-
-main();

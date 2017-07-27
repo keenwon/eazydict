@@ -52,6 +52,17 @@ program
   });
 
 /**
+ * 打开生词本
+ */
+program
+  .command('wordbook')
+  .alias('w')
+  .description('打开生词本')
+  .action(() => {
+    wordbook.open();
+  });
+
+/**
  * 自定义 help
  */
 program.on('--help', function () {

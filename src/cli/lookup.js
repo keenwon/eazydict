@@ -9,7 +9,7 @@ const cliWidth = require('cli-width');
 const config = require('../lib/config');
 const { pad } = require('../lib/utils');
 
-const exampleWidth = cliWidth() - 14;
+let windowWidth;
 
 chalk.enabled = typeof config.colorful === 'boolean'
   ? config.colorful
@@ -30,6 +30,8 @@ function highlight(str, words) {
  * 格式化例句
  */
 function formatExample(str, words, firstLineIndent, indent) {
+  let exampleWidth = windowWidth - 14;
+
   // 兼容 windows 上 git-bash 等
   if (exampleWidth <= 0) {
     return firstLineIndent + str;
@@ -46,9 +48,13 @@ function formatExample(str, words, firstLineIndent, indent) {
     .join('\n');
 }
 
-function main(data) {
+function main(data, width) {
   let result = [''];
   let count = 0;
+
+  windowWidth = width
+    ? width
+    : cliWidth();
 
   data.forEach(item => {
     let circle = unicons.cli('circle');
