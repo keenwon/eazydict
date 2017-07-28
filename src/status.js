@@ -1,27 +1,35 @@
 'use strict';
 
-const Table = require('cli-table2');
 const { getStatus } = require('./service/status');
+const statusCli = require('./cli/status');
+const {
+  loadStart,
+  loadSuccess,
+  loadFail
+} = require('./cli/loader');
 
 /**
  * 获取 EazyDict 状态
  */
 function status() {
-  return getStatus().then(state => {
-    let table = new Table({
-      colWidths: [30, 30]
-    });
+  loadStart();
 
-    table.push(
+  return getStatus().then(state => {
+    let items = [
       ['查询单词数', state.historyCount],
       ['查询数', state.lookupCount],
       ['生词数', state.workbookCount],
       ['数据库大小', state.databaseSize]
-    );
+    ];
 
-    console.log(table.toString());
+    loadSuccess('load success:');
+    let output = statusCli(items);
+
+    console.log('');
+    console.log(output);
     console.log('');
   }).catch(err => {
+    loadFail();
     console.error(err);
   });
 }
