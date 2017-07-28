@@ -78,6 +78,10 @@ program.on('--help', function () {
   console.log('    $ eazydict lookup fly in sky');
   console.log('    $ eazydict l fly in sky');
   console.log('');
+  console.log('    查询短语 "hello"，同时保存到生词本：');
+  console.log('    $ eazydict --save hello');
+  console.log('    $ eazydict --s hello');
+  console.log('');
   console.log('    查看历史记录：');
   console.log('    $ eazydict history');
   console.log('    $ eazydict h');
