@@ -29,9 +29,15 @@ function lookup(...argus) {
   return co(function* () {
     loadStart();
 
-    let lookupData = yield lookupService(words, save);
-    let outputData = filter(lookupData);
-    let output = lookupCli(outputData);
+    let data = yield lookupService(words, save);
+
+    // 保存到生词本的信息
+    let saveInfo = data.saveInfo && data.saveInfo.message
+      ? data.saveInfo.message
+      : null;
+
+    let outputData = filter(data.output);
+    let output = lookupCli(outputData, 0, saveInfo);
 
     loadSuccess(`Look up "${words}":`);
     console.log(output);

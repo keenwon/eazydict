@@ -6,7 +6,7 @@ const local = require('./local');
 const online = require('./online');
 const config = require('../../lib/config');
 const historyDao = require('../../dao/HistoryDao');
-const wordbookDao = require('../../dao/WordbookDao');
+const wordbookService = require('../wordbook');
 
 /**
  * 查询单词
@@ -14,6 +14,7 @@ const wordbookDao = require('../../dao/WordbookDao');
 function lookup(words, save) {
   return co(function* () {
     let localData = yield local(words);
+    let saveInfo; // 保存到生词本的结果信息
 
     /**
      * 本地缓存存在，且没有过期
@@ -24,10 +25,13 @@ function lookup(words, save) {
 
       // 保存生词本
       if (save) {
-        yield wordbookDao.save(localData.id);
+        saveInfo = yield wordbookService.save(localData.id);
       }
 
-      return localData.output;
+      return {
+        saveInfo,
+        output: localData.output
+      };
     }
 
     /**
@@ -55,10 +59,13 @@ function lookup(words, save) {
 
     // 保存生词本
     if (save) {
-      yield wordbookDao.save(historyId);
+      saveInfo = yield wordbookService.save(historyId);
     }
 
-    return onlineData;
+    return {
+      saveInfo,
+      output: onlineData
+    };
   });
 }
 

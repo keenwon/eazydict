@@ -66,16 +66,28 @@ function getAll(offset = 0, limit = 100) {
 
 /**
  * 取生词数
+ *
+ * 如果 historyId 存在，计算除了 historyId 之外的数，
+ * 也就是即使达到上限，也可以添加已经添加过的词
  */
-function getWordbookCount() {
+function getWordbookCount(historyId) {
   return co(function* () {
     let wordbookModel = yield new WordbookModel();
-
-    let data = yield wordbookModel.findOne({
+    let findOptions = {
       attributes: [
         [sequelize.fn('COUNT', sequelize.col('id')), 'num']
       ]
-    });
+    };
+
+    if (typeof historyId === 'number') {
+      findOptions.where = {
+        historyId: {
+          $ne: historyId
+        }
+      };
+    }
+
+    let data = yield wordbookModel.findOne(findOptions);
 
     return data.dataValues.num;
   }).catch(err => {

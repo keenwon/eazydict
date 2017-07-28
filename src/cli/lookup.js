@@ -48,7 +48,7 @@ function formatExample(str, words, firstLineIndent, indent) {
     .join('\n');
 }
 
-function main(data, width) {
+function main(data, width, saveInfo) {
   let result = [''];
   let count = 0;
 
@@ -56,6 +56,7 @@ function main(data, width) {
     ? width
     : cliWidth();
 
+  // 输出翻译信息
   data.forEach(item => {
     let circle = unicons.cli('circle');
     let pluginName = chalk.blue.bold(item.pluginName);
@@ -132,6 +133,12 @@ function main(data, width) {
       result.push('');
     }
   });
+
+  // 输出生词本保存信息
+  if (saveInfo) {
+    result.push(`  ${chalk.red(unicons.cli('cross') + ' ' + saveInfo)}`);
+    result.push('');
+  }
 
   if (!count) {
     result = [

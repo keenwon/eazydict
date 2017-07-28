@@ -58,7 +58,7 @@ function open() {
  * 获取全部生词
  */
 function getAll() {
-  return wordbookService.getAll(1000);
+  return wordbookService.getAll(300);
 }
 
 module.exports = {
