@@ -25,6 +25,7 @@
   "dependencies": {
     "blessed": "^0.1.81",
     "chalk": "^2.0.1",
+    "cli-table2": "^0.2.0",
     "cli-width": "^2.1.0",
     "co": "^4.6.0",
     "commander": "^2.10.0",
@@ -32,6 +33,7 @@
     "eazydict-bing": "^1.0.0-beta.10",
     "eazydict-google": "^1.0.0-beta.18",
     "eazydict-youdao": "^1.1.0-beta.15",
+    "filesize": "^3.5.10",
     "fs-extra": "^4.0.0",
     "inquirer": "^3.2.1",
     "js-yaml": "^3.9.0",
