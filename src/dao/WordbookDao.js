@@ -6,16 +6,16 @@
 
 const co = require('co');
 const sequelize = require('sequelize');
-const WordBookModel = require('./model/WordBookModel');
+const WordbookModel = require('./model/WordbookModel');
 
 /**
  * 保存生词
  */
 function save(historyId) {
   return co(function* () {
-    let wordBookModel = yield new WordBookModel();
+    let wordbookModel = yield new WordbookModel();
 
-    yield wordBookModel.create({
+    yield wordbookModel.create({
       historyId
     });
 
@@ -35,9 +35,9 @@ function save(historyId) {
  */
 function remove(id) {
   return co(function* () {
-    let wordBookModel = yield new WordBookModel();
+    let wordbookModel = yield new WordbookModel();
 
-    yield wordBookModel.destroy({
+    yield wordbookModel.destroy({
       where: {
         id
       }
@@ -52,8 +52,8 @@ function remove(id) {
  */
 function getAll(offset = 0, limit = 100) {
   return co(function* () {
-    let wordBookModel = yield new WordBookModel();
-    return yield wordBookModel.findAll({
+    let wordbookModel = yield new WordbookModel();
+    return yield wordbookModel.findAll({
       offset,
       limit,
       order: [

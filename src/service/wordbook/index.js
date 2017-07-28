@@ -2,7 +2,7 @@
 
 const co = require('co');
 const { getRecentList, getByIds } = require('../../dao/HistoryDao');
-const wordBookDao = require('../../dao/WordBookDao');
+const wordbookDao = require('../../dao/WordbookDao');
 
 /**
  * 保存查询过的单词到生词本
@@ -24,7 +24,7 @@ function saveLast(offset) {
     let data = recentList[0];
 
     // 保存生词
-    yield wordBookDao.save(data.id);
+    yield wordbookDao.save(data.id);
 
     message = `已将 "${data.words}" 保存至生词本！`;
 
@@ -39,7 +39,7 @@ function saveLast(offset) {
  * 保存生词
  */
 function save(historyId) {
-  return wordBookDao
+  return wordbookDao
     .save(historyId);
 }
 
@@ -48,7 +48,7 @@ function save(historyId) {
  */
 function getAll(limit) {
   return co(function* () {
-    let words = yield wordBookDao.getAll(0, limit);
+    let words = yield wordbookDao.getAll(0, limit);
     let historyIds = words.map(word => {
       return word.dataValues.historyId;
     });

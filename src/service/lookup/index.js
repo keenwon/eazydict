@@ -6,7 +6,7 @@ const local = require('./local');
 const online = require('./online');
 const config = require('../../lib/config');
 const historyDao = require('../../dao/HistoryDao');
-const wordbookDao = require('../../dao/WordBookDao');
+const wordbookDao = require('../../dao/WordbookDao');
 
 /**
  * 查询单词

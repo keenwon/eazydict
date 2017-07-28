@@ -9,7 +9,7 @@ const filesize = require('filesize');
 const {
   getHistoryCount,
   getLookupCount,
-  getWordBookCount
+  getWordbookCount
 } = require('../../dao/StatusDao');
 
 const home = os.homedir();
@@ -44,7 +44,7 @@ function getStatus() {
     ] = yield [
       getHistoryCount(),
       getLookupCount(),
-      getWordBookCount(),
+      getWordbookCount(),
       getDatabaseSize()
     ];
 

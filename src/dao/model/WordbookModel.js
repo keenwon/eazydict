@@ -24,12 +24,12 @@ let options = {
   ]
 };
 
-const WordBook = connection.define('wordbook', fields, options);
+const Wordbook = connection.define('wordbook', fields, options);
 
 module.exports = function () {
-  return WordBook
+  return Wordbook
     .sync({
       logging: false
     })
-    .then(() => WordBook);
+    .then(() => Wordbook);
 };

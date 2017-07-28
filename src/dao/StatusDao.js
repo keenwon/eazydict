@@ -4,7 +4,7 @@ const debug = require('../lib/debug');
 const co = require('co');
 const sequelize = require('sequelize');
 const HistoryModel = require('./model/HistoryModel');
-const WordBookModel = require('./model/WordBookModel');
+const WordbookModel = require('./model/WordbookModel');
 
 /**
  * 取累计查询的单词数
@@ -49,11 +49,11 @@ function getLookupCount() {
 /**
  * 取生词数
  */
-function getWordBookCount() {
+function getWordbookCount() {
   return co(function* () {
-    let wordBookModel = yield new WordBookModel();
+    let wordbookModel = yield new WordbookModel();
 
-    let data = yield wordBookModel.findOne({
+    let data = yield wordbookModel.findOne({
       attributes: [
         [sequelize.fn('COUNT', sequelize.col('id')), 'num']
       ]
@@ -69,5 +69,5 @@ function getWordBookCount() {
 module.exports = {
   getHistoryCount,
   getLookupCount,
-  getWordBookCount
+  getWordbookCount
 };
