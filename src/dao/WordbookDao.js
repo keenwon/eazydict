@@ -4,6 +4,7 @@
  * 生词本
  */
 
+const debug = require('../lib/debug');
 const co = require('co');
 const sequelize = require('sequelize');
 const WordbookModel = require('./model/WordbookModel');
@@ -63,8 +64,29 @@ function getAll(offset = 0, limit = 100) {
   });
 }
 
+/**
+ * 取生词数
+ */
+function getWordbookCount() {
+  return co(function* () {
+    let wordbookModel = yield new WordbookModel();
+
+    let data = yield wordbookModel.findOne({
+      attributes: [
+        [sequelize.fn('COUNT', sequelize.col('id')), 'num']
+      ]
+    });
+
+    return data.dataValues.num;
+  }).catch(err => {
+    debug(err);
+    return '未知';
+  });
+}
+
 module.exports = {
   save,
   remove,
-  getAll
+  getAll,
+  getWordbookCount
 };

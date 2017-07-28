@@ -4,7 +4,9 @@
  * 历史记录
  */
 
+const debug = require('../lib/debug');
 const co = require('co');
+const sequelize = require('sequelize');
 const { isExpired } = require('../lib/utils');
 const config = require('../lib/config');
 const HistoryModel = require('./model/HistoryModel');
@@ -112,6 +114,46 @@ function getByIds(ids) {
 }
 
 /**
+ * 取累计查询的单词数
+ */
+function getHistoryCount() {
+  return co(function* () {
+    let historyModel = yield new HistoryModel();
+
+    let data = yield historyModel.findOne({
+      attributes: [
+        [sequelize.fn('COUNT', sequelize.col('id')), 'num']
+      ]
+    });
+
+    return data.dataValues.num;
+  }).catch(err => {
+    debug(err);
+    return '未知';
+  });
+}
+
+/**
+ * 取累计查询次数
+ */
+function getLookupCount() {
+  return co(function* () {
+    let historyModel = yield new HistoryModel();
+
+    let data = yield historyModel.findOne({
+      attributes: [
+        [sequelize.fn('SUM', sequelize.col('count')), 'num']
+      ]
+    });
+
+    return data.dataValues.num;
+  }).catch(err => {
+    debug(err);
+    return '未知';
+  });
+}
+
+/**
  * 查询
  */
 function _find(where) {
@@ -157,5 +199,7 @@ module.exports = {
   update,
   search,
   getRecentList,
-  getByIds
+  getByIds,
+  getHistoryCount,
+  getLookupCount
 };

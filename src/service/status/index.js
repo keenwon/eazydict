@@ -8,9 +8,11 @@ const fs = require('fs');
 const filesize = require('filesize');
 const {
   getHistoryCount,
-  getLookupCount,
+  getLookupCount
+} = require('../../dao/HistoryDao');
+const {
   getWordbookCount
-} = require('../../dao/StatusDao');
+} = require('../../dao/WordbookDao');
 
 const home = os.homedir();
 const databasePath = path.join(home, '/.eazydict/database.sqlite');
