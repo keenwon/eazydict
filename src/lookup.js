@@ -16,7 +16,7 @@ const {
  * 单词查询
  */
 function lookup(...argus) {
-  let options = argus.slice(-1);
+  let save = argus.slice(-1)[0];
   let words = argus
     .slice(0, -1)
     .map(word => word.trim())
@@ -24,12 +24,12 @@ function lookup(...argus) {
     .slice(0, 240); // 限制长度
 
   debug('words: %s', words);
-  debug('options: %O', options);
+  debug('save: %s', save);
 
   return co(function* () {
     loadStart();
 
-    let lookupData = yield lookupService(words);
+    let lookupData = yield lookupService(words, save);
     let outputData = filter(lookupData);
     let output = lookupCli(outputData);
 

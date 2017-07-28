@@ -14,9 +14,9 @@ const {
 /**
  * 保存查询过的单词到生词本
  */
-function save(offset = 0) {
+function saveLast(offset = 0) {
   return co(function* () {
-    let result = yield wordbookService.save(offset);
+    let result = yield wordbookService.saveLast(offset);
 
     let icon, message;
     if (result.success) {
@@ -62,6 +62,6 @@ function getAll() {
 }
 
 module.exports = {
-  save,
+  saveLast,
   open
 };

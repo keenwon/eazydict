@@ -7,7 +7,7 @@ const config = require('../../lib/config');
 /**
  * 在线查询
  */
-function online(words, options) {
+function online(words) {
   if (plugins && !plugins.length) {
     console.log('没有启用任何插件');
     return;

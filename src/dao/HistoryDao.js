@@ -33,7 +33,7 @@ function update(id, data) {
     let updateData = Object.assign({}, originData.dataValues, data, {
       count: ++originData.dataValues.count,
       cacheAt: Date.now()
-    })
+    });
 
     // 执行更新
     return yield _update(updateData, { id });
@@ -49,8 +49,10 @@ function search(words) {
     let hitCache = false;
     let result;
 
+    // 搜索数据
     let data = yield _find({ words });
 
+    // 数据存在且未过期的话，count + 1
     if (data && !isExpired(data.dataValues.cacheAt, config.expires)) {
       hitCache = true;
       let id = data.dataValues.id;
@@ -64,7 +66,10 @@ function search(words) {
       };
     } else if (data && hitCache) {
       // 缓存存在，未过期
-      result = data.dataValues.output;
+      result = {
+        id: data.id,
+        output: data.dataValues.output
+      };
     } else {
       // 缓存不存在
       result = null;

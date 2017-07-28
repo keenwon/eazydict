@@ -7,7 +7,7 @@ const wordBookDao = require('../../dao/WordBookDao');
 /**
  * 保存查询过的单词到生词本
  */
-function save(offset) {
+function saveLast(offset) {
   return co(function* () {
     let recentList = yield getRecentList(offset, 1);
     let message;
@@ -36,6 +36,14 @@ function save(offset) {
 }
 
 /**
+ * 保存生词
+ */
+function save(historyId) {
+  return wordBookDao
+    .save(historyId);
+}
+
+/**
  * 获取全部生词
  */
 function getAll(limit) {
@@ -56,5 +64,6 @@ function getAll(limit) {
 
 module.exports = {
   save,
+  saveLast,
   getAll
 };
