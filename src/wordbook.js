@@ -41,6 +41,11 @@ function open() {
 
   return getAll()
     .then(data => {
+      if (!data.words.length || !data.histories.length) {
+        loadSuccess('暂时没有生词');
+        return;
+      }
+
       loadSuccess('Open Wordbook');
       wordbookCli(data);
     }).catch(err => {
