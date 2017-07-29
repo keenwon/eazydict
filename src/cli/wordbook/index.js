@@ -2,6 +2,7 @@
 
 const blessed = require('blessed');
 const lookupCli = require('../lookup');
+const wordbookService = require('../../service/wordbook');
 
 let createContentBox = require('./contentBox');
 let createScreen = require('./screen');
@@ -20,6 +21,11 @@ let index = 0;
  * 内容区域的 offset
  */
 let offset = 0;
+
+/**
+ * 删除模式
+ */
+let isDeleteMode = false;
 
 let contentBox;
 let screen;
@@ -122,6 +128,26 @@ function move(direction) {
 }
 
 /**
+ * 删除当前的单词
+ */
+function deleteWord() {
+  let word = words.splice(index, 1);
+  histories.splice(index, 1);
+
+  setWordList();
+  setContentData();
+  screen.render();
+
+  let id = word[0].dataValues.id;
+
+  wordbookService
+    .remove(id)
+    .catch(err => {
+      console.error(err);
+    });
+}
+
+/**
  * 初始化事件
  */
 function initEvent() {
@@ -135,6 +161,19 @@ function initEvent() {
     wordBox.focused
       ? contentBox.focus()
       : wordBox.focus();
+  });
+
+  // 删除当前生词
+  screen.key('d', () => {
+    if (isDeleteMode) {
+      deleteWord();
+      return;
+    }
+
+    isDeleteMode = true;
+    setTimeout(() => {
+      isDeleteMode = false;
+    }, 200);
   });
 
   // move

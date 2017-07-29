@@ -68,11 +68,22 @@ function getAll(limit) {
 
     let histories = yield getByIds(historyIds);
 
+    histories.sort((a, b) => {
+      return historyIds.indexOf(a.id) - historyIds.indexOf(b.id);
+    });
+
     return {
       words,
       histories
     }
   });
+}
+
+/**
+ * 删除生词
+ */
+function remove(id) {
+  return wordbookDao.remove(id);
 }
 
 /**
@@ -88,5 +99,6 @@ function _canInsert(historyId) {
 module.exports = {
   save,
   saveLast,
-  getAll
+  getAll,
+  remove
 };

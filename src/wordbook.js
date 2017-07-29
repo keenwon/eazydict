@@ -39,7 +39,7 @@ function saveLast(offset = 0) {
 function open() {
   loadStart();
 
-  return getAll()
+  return wordbookService.getAll()
     .then(data => {
       if (!data.words.length || !data.histories.length) {
         loadSuccess('暂时没有生词');
@@ -52,13 +52,6 @@ function open() {
       loadFail();
       console.error(err);
     });
-}
-
-/**
- * 获取全部生词
- */
-function getAll() {
-  return wordbookService.getAll(300);
 }
 
 module.exports = {
