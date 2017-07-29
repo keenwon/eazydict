@@ -58,6 +58,14 @@ function setContentData() {
   contentBox.setContent(content);
 }
 
+function setStatusData() {
+  /* eslint-disable max-len */
+  statusBox.setContent(
+    `  共 ${words.length} 条 | 退出: Esc、Ctrl-C、q; 删除: d-d {|} {cyan-fg}{bold} Made With Heart by Keenwon{/bold}  `
+  );
+  /* eslint-enable max-len */
+}
+
 /**
  * 移动
  */
@@ -136,6 +144,7 @@ function deleteWord() {
 
   setWordList();
   setContentData();
+  setStatusData();
   screen.render();
 
   let id = word[0].dataValues.id;
@@ -198,6 +207,7 @@ function main(data) {
 
   setWordList();
   setContentData();
+  setStatusData();
 
   initEvent();
 
