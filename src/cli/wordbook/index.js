@@ -21,11 +21,6 @@ let index = 0;
  */
 let offset = 0;
 
-/**
- * pageUp & pageDown 的步长
- */
-let step = 10;
-
 let contentBox;
 let screen;
 let statusBox;
@@ -61,14 +56,16 @@ function setContentData() {
  * 移动
  */
 function move(direction) {
-  let _index, length;
+  let _index, length, step;
 
   if (wordBox.focused) {
     _index = index;
     length = words.length;
+    step = wordBox.height - 4;
   } else {
     _index = offset;
     length = contentBox.getScrollHeight();
+    step = Math.floor((contentBox.height - 1) / 2);
   }
 
   switch (direction) {
