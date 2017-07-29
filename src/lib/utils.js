@@ -38,3 +38,51 @@ exports.isExpired = function (timeStr, range) {
 
   return result;
 }
+
+/**
+ * 获取26个英文字母
+ */
+exports.getLetters = function () {
+  var letters = [];
+
+  for (let i = 97; i <= 122; i++) {
+    letters.push(String.fromCharCode(i));
+  }
+
+  return letters;
+}
+
+/**
+ * 字符串模糊搜索
+ */
+exports.fuzzy = function (keywords, str, fn) {
+  let source = str.split('');
+  let target = keywords.split('');
+  let targetIndex = 0;
+
+  if (target.length > source.length) {
+    return {
+      match: false
+    };
+  }
+
+  for (let i = 0, j = source.length; i < j; i++) {
+    if (source[i] !== target[targetIndex]) {
+      continue;
+    }
+
+    source[i] = fn(source[i]);
+    targetIndex++;
+  }
+
+  if (targetIndex >= target.length) {
+    return {
+      match: true,
+      str: source.join('')
+    };
+  }
+
+  return {
+    match: false
+  };
+}
