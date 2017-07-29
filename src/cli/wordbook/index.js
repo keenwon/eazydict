@@ -138,10 +138,10 @@ function initEvent() {
   });
 
   // move
-  screen.key('up', () => move('up'));
-  screen.key('down', () => move('down'));
-  screen.key('pageup', () => move('pageup'));
-  screen.key('pagedown', () => move('pagedown'));
+  screen.key(['up', 'k'], () => move('up'));
+  screen.key(['down', 'j', 'g-g'], () => move('down'));
+  screen.key(['pageup', 'C-b'], () => move('pageup'));
+  screen.key(['pagedown', 'C-f'], () => move('pagedown'));
 }
 
 function main(data) {
