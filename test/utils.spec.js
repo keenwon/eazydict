@@ -2,8 +2,13 @@
 
 /* eslint-disable no-console, max-nested-callbacks */
 
-const { pad, isExpired, fuzzy } = require('../src/utils');
 const moment = require('moment');
+const {
+  pad,
+  isExpired,
+  fuzzy,
+  getLetters
+} = require('../src/utils');
 
 const mocha = require('mocha');
 const chai = require('chai');
@@ -139,4 +144,12 @@ describe('Utils 测试', function () {
 
   });
 
+  describe('# getLetters 测试', function () {
+
+    it('test', function () {
+      return getLetters().join('').should
+        .equal('abcdefghijklmnopqrstuvwxyz');
+    });
+
+  });
 });
