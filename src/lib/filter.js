@@ -28,12 +28,14 @@ function filter(outputArray) {
       return config.enable.includes(item.packageName);
     })
     .map(item => {
+      let pluginName = item.packageName.replace(/^eazydict-/, '');
+
       // 完全没有插件配置 或 没有当前插件的，直接返回
-      if (!pluginsConfig || !pluginsConfig[item.packageName]) {
+      if (!pluginsConfig || !pluginsConfig[pluginName]) {
         return item;
       }
 
-      let pluginConfig = pluginsConfig[item.packageName];
+      let pluginConfig = pluginsConfig[pluginName];
 
       let exampleCount = getCount(pluginConfig.examples);
       let phoneticCount = getCount(pluginConfig.phonetics);
