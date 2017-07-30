@@ -106,10 +106,10 @@ function setStatusData() {
   let content;
 
   if (isSearchMode) {
-    content = `  请输入关键字: ${keywords}`;
+    content = `  ${chalk.blue('退出')}：Eac、Ctrl-C | 请输入关键字: ${keywords}`;
   } else {
     // eslint-disable-next-line max-len
-    content = `  共 ${activeWords.length} 条 | 退出: Esc、Ctrl-C、q; 删除: d-d {|} {cyan-fg}{bold} Made With Heart by Keenwon{/bold}  `;
+    content = `  共 ${activeWords.length} 条 | ${chalk.blue('退出')}: Esc、Ctrl-C、q; ${chalk.blue('删除')}: d-d; ${chalk.blue('搜索')}: / {|} {cyan-fg}{bold} Made With Heart by Keenwon{/bold}  `;
   }
 
   statusBox.setContent(content);
@@ -228,7 +228,7 @@ function bindSearchEvent() {
   // 退出快捷键
   screen.key(['escape', 'C-c'], () => {
     keywords = '';
-    init('normal')
+    init('normal');
   });
 
   screen.key(letters, (i, key) => {
