@@ -22,7 +22,7 @@ function history() {
     let data = yield historyService.getHistory(10);
 
     if (!data || !data.length) {
-      console.log(`\n  ${chalk.green(unicons.cli('check') + ' 暂无历史记录!')}\n`);
+      loadSuccess('暂无历史记录');
       return;
     }
 
