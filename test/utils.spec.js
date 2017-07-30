@@ -2,7 +2,7 @@
 
 /* eslint-disable no-console, max-nested-callbacks */
 
-const { pad, isExpired } = require('../src/utils');
+const { pad, isExpired, fuzzy } = require('../src/utils');
 const moment = require('moment');
 
 const mocha = require('mocha');
@@ -76,6 +76,64 @@ describe('Utils 测试', function () {
       it(title, function () {
         return isExpired(obj.timeStr, obj.range)
           .should.equal(obj.result);
+      });
+    });
+
+  });
+
+  describe('# fuzzy 测试', function () {
+
+    let objs = [
+      {
+        keywords: 'foo',
+        str: '--f--o--o--',
+        result: {
+          match: true,
+          str: '--<f>--<o>--<o>--'
+        }
+      },
+      {
+        keywords: 'foo',
+        str: '--o--f--o--o--',
+        result: {
+          match: true,
+          str: '--o--<f>--<o>--<o>--'
+        }
+      },
+      {
+        keywords: '',
+        str: '--f--o--o--',
+        result: {
+          match: true,
+          str: '--f--o--o--'
+        }
+      },
+      {
+        keywords: 'fff',
+        str: '--f--o--o--',
+        result: {
+          match: false
+        }
+      },
+      {
+        keywords: 'fooo',
+        str: 'foo',
+        result: {
+          match: false
+        }
+      }
+    ];
+
+    let fn = str => {
+      return '<' + str + '>';
+    };
+
+    objs.forEach((obj) => {
+      let title = `test: keywords ${obj.keywords}, str: ${obj.str}`;
+
+      it(title, function () {
+        return fuzzy(obj.keywords, obj.str, fn)
+          .should.deep.equal(obj.result);
       });
     });
 
