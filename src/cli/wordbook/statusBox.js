@@ -5,7 +5,7 @@ const blessed = require('blessed');
 /**
  * 创建状态栏
  */
-function createStatusBox(count) {
+function createStatusBox() {
   return blessed.text({
     valign: 'middle',
     top: '95%',

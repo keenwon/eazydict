@@ -1,8 +1,10 @@
 'use strict';
 
 const blessed = require('blessed');
+const chalk = require('chalk');
 const lookupCli = require('../lookup');
 const wordbookService = require('../../service/wordbook');
+const utils = require('../../lib/utils');
 
 let createContentBox = require('./contentBox');
 let createScreen = require('./screen');
@@ -10,7 +12,7 @@ let createStatusBox = require('./statusBox');
 let createWordBox = require('./wordBox');
 
 let words;
-let histories;
+let activeWords;
 
 /**
  * 当前单词索引
@@ -27,6 +29,16 @@ let offset = 0;
  */
 let isDeleteMode = false;
 
+/**
+ * 搜索模式
+ */
+let isSearchMode = false;
+
+/**
+ * 搜索关键字
+ */
+let keywords = '';
+
 let contentBox;
 let screen;
 let statusBox;
@@ -36,9 +48,30 @@ let wordBox;
  * 初始化生词列表
  */
 function setWordList() {
+  // 过滤单词
+  activeWords = words.filter(word => {
+    if (!isSearchMode || !keywords) {
+      word.coloredValue = word.value;
+      return true;
+    }
+
+    // 测试匹配，高亮关键字
+    let result = utils.fuzzy(keywords, word.value, function (str) {
+      return chalk.red(str);
+    });
+
+    if (result.match) {
+      word.coloredValue = result.str;
+    } else {
+      word.coloredValue = '';
+    }
+
+    return result.match;
+  });
+
   // 生词列表
-  let wordList = histories.map(history => {
-    return history.dataValues.words;
+  let wordList = activeWords.map(word => {
+    return word.coloredValue || word.value;
   });
 
   wordBox.setItems(wordList);
@@ -48,22 +81,38 @@ function setWordList() {
  * 显示当前生词
  */
 function setContentData() {
-  let label = histories[index].dataValues.words
-  let content = lookupCli(
-    histories[index].dataValues.output,
-    contentBox.width
-  );
+  if (activeWords[index]) {
+    let label = '';
+    let content = '';
 
-  contentBox.setLabel(` ${label} `);
-  contentBox.setContent(content);
+    label = ` ${activeWords[index].value} `;
+    content = lookupCli(
+      activeWords[index].output,
+      contentBox.width
+    );
+
+    contentBox.setLabel(label);
+    contentBox.setContent(content);
+  } else {
+    contentBox.removeLabel();
+    contentBox.setContent('');
+  }
 }
 
+/**
+ * 设置状态栏内容
+ */
 function setStatusData() {
-  /* eslint-disable max-len */
-  statusBox.setContent(
-    `  共 ${words.length} 条 | 退出: Esc、Ctrl-C、q; 删除: d-d {|} {cyan-fg}{bold} Made With Heart by Keenwon{/bold}  `
-  );
-  /* eslint-enable max-len */
+  let content;
+
+  if (isSearchMode) {
+    content = `  请输入关键字: ${keywords}`;
+  } else {
+    // eslint-disable-next-line max-len
+    content = `  共 ${activeWords.length} 条 | 退出: Esc、Ctrl-C、q; 删除: d-d {|} {cyan-fg}{bold} Made With Heart by Keenwon{/bold}  `;
+  }
+
+  statusBox.setContent(content);
 }
 
 /**
@@ -74,7 +123,7 @@ function move(direction) {
 
   if (wordBox.focused) {
     _index = index;
-    length = words.length;
+    length = activeWords.length;
     step = wordBox.height - 4;
   } else {
     _index = offset;
@@ -139,15 +188,14 @@ function move(direction) {
  * 删除当前的单词
  */
 function deleteWord() {
-  let word = words.splice(index, 1);
-  histories.splice(index, 1);
+  let word = activeWords.splice(index, 1);
 
   setWordList();
   setContentData();
   setStatusData();
   screen.render();
 
-  let id = word[0].dataValues.id;
+  let id = word[0].id;
 
   wordbookService
     .remove(id)
@@ -157,19 +205,54 @@ function deleteWord() {
 }
 
 /**
- * 初始化事件
+ * 禁用事件
  */
-function initEvent() {
+function disableEvent() {
+  Object.keys(screen._events).map(type => {
+    if (type.startsWith('key')) {
+      delete screen._events[type];
+    }
+  });
+}
+
+/**
+ * 设置搜索事件
+ */
+function bindSearchEvent() {
+  disableEvent();
+
+  let letters = utils.getLetters();
+
+  letters.push('backspace');
+
+  // 退出快捷键
+  screen.key(['escape', 'C-c'], () => {
+    keywords = '';
+    init('normal')
+  });
+
+  screen.key(letters, (i, key) => {
+    if (key.name === 'backspace') {
+      keywords = keywords.slice(0, -1);
+    } else {
+      keywords += key.name;
+    }
+
+    init('search');
+  });
+
+  bindMoveEvent();
+}
+
+/**
+ * 设置常规事件
+ */
+function bindNormalEvent() {
+  disableEvent();
+
   // 退出快捷键
   screen.key(['escape', 'q', 'C-c'], () => {
     return process.exit(0);
-  });
-
-  // tab切换
-  screen.key('tab', () => {
-    wordBox.focused
-      ? contentBox.focus()
-      : wordBox.focus();
   });
 
   // 删除当前生词
@@ -185,6 +268,23 @@ function initEvent() {
     }, 200);
   });
 
+  // 搜索
+  screen.key('/', () => init('search'));
+
+  bindMoveEvent();
+}
+
+/**
+ * 绑定光标移动事件
+ */
+function bindMoveEvent() {
+  // tab切换
+  screen.key(['tab', 'left', 'right'], () => {
+    wordBox.focused
+      ? contentBox.focus()
+      : wordBox.focus();
+  });
+
   // move
   screen.key(['up', 'k'], () => move('up'));
   screen.key(['down', 'j', 'g-g'], () => move('down'));
@@ -192,28 +292,40 @@ function initEvent() {
   screen.key(['pagedown', 'C-f'], () => move('pagedown'));
 }
 
+function init(mode) {
+  index = 0;
+  offset = 0;
+  isSearchMode = mode === 'search';
+
+  setWordList();
+  setContentData();
+  setStatusData();
+
+  if (mode === 'normal') {
+    bindNormalEvent();
+  } else {
+    bindSearchEvent();
+  }
+
+  wordBox.focus();
+  wordBox.select(index);
+  screen.render();
+}
+
 function main(data) {
-  words = data.words;
-  histories = data.histories;
+  words = data;
+  activeWords = data;
 
   screen = createScreen(); // 必须先创建 screen
   contentBox = createContentBox();
-  statusBox = createStatusBox(words.length);
+  statusBox = createStatusBox();
   wordBox = createWordBox();
 
   screen.append(wordBox);
   screen.append(contentBox);
   screen.append(statusBox);
 
-  setWordList();
-  setContentData();
-  setStatusData();
-
-  initEvent();
-
-  wordBox.focus();
-
-  screen.render();
+  init('normal');
 }
 
 module.exports = main;

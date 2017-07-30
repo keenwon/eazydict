@@ -46,12 +46,35 @@ function open() {
         return;
       }
 
+      let words = mergeWordAndHistory(
+        data.words,
+        data.histories
+      );
+
       loadSuccess('Open Wordbook');
-      wordbookCli(data);
+      wordbookCli(words);
     }).catch(err => {
       loadFail();
       console.error(err);
     });
+}
+
+/**
+ * 合并生词和历史，输出到生词本
+ */
+function mergeWordAndHistory(words, histories) {
+  let result = [];
+
+  words.forEach((word, index) => {
+    let history = histories[index];
+
+    result.push(Object.assign({}, word.dataValues, {
+      value: history.dataValues.words,
+      output: history.dataValues.output
+    }));
+  });
+
+  return result;
 }
 
 module.exports = {
