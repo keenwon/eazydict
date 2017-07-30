@@ -188,14 +188,17 @@ function move(direction) {
  * 删除当前的单词
  */
 function deleteWord() {
-  let word = activeWords.splice(index, 1);
+  // 从 activeWords 找到元素Id
+  let id = activeWords[index].id;
+
+  // 从 words 中删除
+  let wordsIndex = words.findIndex(item => item.id === id);
+  words.splice(wordsIndex, 1);
 
   setWordList();
   setContentData();
   setStatusData();
   screen.render();
-
-  let id = word[0].id;
 
   wordbookService
     .remove(id)
