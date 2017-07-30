@@ -91,7 +91,8 @@ exports.fuzzy = function (keywords, str, fn) {
  * 数组 a 包含 b
  */
 exports.arrayContains = function (a, b) {
-  if (a.length < b.length) {
+  if (!Array.isArray(a) || !Array.isArray(b)
+    || a.length < b.length) {
     return false;
   }
 

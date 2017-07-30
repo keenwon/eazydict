@@ -70,7 +70,8 @@ function search(words) {
       // 缓存存在，未过期
       result = {
         id: data.id,
-        output: data.dataValues.output
+        output: data.dataValues.output,
+        plugins: JSON.parse(data.dataValues.plugins)
       };
     } else {
       // 缓存不存在
