@@ -16,8 +16,8 @@ function status() {
 
   return getStatus().then(state => {
     let items = [
-      ['查询单词数', state.historyCount],
-      ['查询数', state.lookupCount],
+      ['查询单词个数', state.historyCount],
+      ['累计查询次数', state.lookupCount],
       ['生词数', state.workbookCount],
       ['数据库大小', state.databaseSize]
     ];
