@@ -22,20 +22,29 @@ function filter(outputArray) {
     return outputArray;
   }
 
-  return outputArray.map(item => {
-    let pluginName = item.pluginName.toLowerCase();
-    let pluginConfig = pluginsConfig[pluginName];
+  return outputArray
+    .filter(item => {
+      // 输出前过滤出启用的插件
+      return config.enable.includes(item.packageName);
+    })
+    .map(item => {
+      // 完全没有插件配置 或 没有当前插件的，直接返回
+      if (!pluginsConfig || !pluginsConfig[item.packageName]) {
+        return item;
+      }
 
-    let exampleCount = getCount(pluginConfig.examples);
-    let phoneticCount = getCount(pluginConfig.phonetics);
-    let translateCount = getCount(pluginConfig.translates);
+      let pluginConfig = pluginsConfig[item.packageName];
 
-    item.examples = item.examples.slice(0, exampleCount);
-    item.phonetics = item.phonetics.slice(0, phoneticCount);
-    item.translates = item.translates.slice(0, translateCount);
+      let exampleCount = getCount(pluginConfig.examples);
+      let phoneticCount = getCount(pluginConfig.phonetics);
+      let translateCount = getCount(pluginConfig.translates);
 
-    return item;
-  });
+      item.examples = item.examples.slice(0, exampleCount);
+      item.phonetics = item.phonetics.slice(0, phoneticCount);
+      item.translates = item.translates.slice(0, translateCount);
+
+      return item;
+    });
 }
 
 module.exports = filter;
