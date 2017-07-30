@@ -13,7 +13,7 @@ const dependencies = Object.keys(pkg.dependencies)
  * 同时保证输出的结果和配置文件中 plugin 的顺序一致
  */
 if(Array.isArray(config.enable)) {
-  plugins = config.enable.filter(plugin => {
+  plugins = dependencies.filter(plugin => {
     return config.enable.includes(plugin);
   });
 }
