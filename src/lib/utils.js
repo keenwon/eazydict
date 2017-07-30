@@ -86,3 +86,23 @@ exports.fuzzy = function (keywords, str, fn) {
     match: false
   };
 }
+
+/**
+ * 数组 a 包含 b
+ */
+exports.arrayContains = function (a, b) {
+  if (a.length < b.length) {
+    return false;
+  }
+
+  let contains = true;
+
+  for (let i = 0, j = b.length; i < j; i++) {
+    if (!a.includes(b[i])) {
+      contains = false;
+      break;
+    }
+  }
+
+  return contains;
+}
