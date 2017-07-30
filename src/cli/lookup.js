@@ -7,7 +7,7 @@ const unicons = require('unicons');
 const stringBreak = require('string-break');
 const cliWidth = require('cli-width');
 const config = require('../lib/config');
-const { pad } = require('../lib/utils');
+const { pad } = require('../utils');
 
 let windowWidth;
 

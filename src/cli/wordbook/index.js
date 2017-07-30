@@ -4,7 +4,7 @@ const blessed = require('blessed');
 const chalk = require('chalk');
 const lookupCli = require('../lookup');
 const wordbookService = require('../../service/wordbook');
-const utils = require('../../lib/utils');
+const utils = require('../../utils');
 
 let createContentBox = require('./contentBox');
 let createScreen = require('./screen');

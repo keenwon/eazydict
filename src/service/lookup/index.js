@@ -5,7 +5,7 @@ const debug = require('../../lib/debug');
 const local = require('./local');
 const online = require('./online');
 const config = require('../../lib/config');
-const utils = require('../../lib/utils');
+const utils = require('../../utils');
 const historyDao = require('../../dao/HistoryDao');
 const wordbookService = require('../wordbook');
 

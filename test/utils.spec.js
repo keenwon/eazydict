@@ -2,7 +2,7 @@
 
 /* eslint-disable no-console, max-nested-callbacks */
 
-const utils = require('../src/lib/utils');
+const { pad, isExpired } = require('../src/utils');
 const moment = require('moment');
 
 const mocha = require('mocha');
@@ -39,7 +39,7 @@ describe('Utils 测试', function () {
       let title = `test: string ${obj.str}, width: ${obj.width || 'default'}`;
 
       it(title, function () {
-        return utils.pad(obj.str, obj.width)
+        return pad(obj.str, obj.width)
           .should.equal(obj.result);
       });
     });
@@ -74,7 +74,7 @@ describe('Utils 测试', function () {
       let title = `test: time ${obj.timeStr}, range: ${obj.range || 'default'}`;
 
       it(title, function () {
-        return utils.isExpired(obj.timeStr, obj.range)
+        return isExpired(obj.timeStr, obj.range)
           .should.equal(obj.result);
       });
     });

@@ -7,7 +7,7 @@
 const debug = require('../lib/debug');
 const co = require('co');
 const sequelize = require('sequelize');
-const { isExpired } = require('../lib/utils');
+const { isExpired } = require('../utils');
 const config = require('../lib/config');
 const HistoryModel = require('./model/HistoryModel');
 
