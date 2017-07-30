@@ -1,6 +1,7 @@
 'use strict';
 
 const updateNotifier = require('update-notifier');
+const pkg = require('../../package.json');
 
 /**
  * 测试，发布 npm 后修改
@@ -8,10 +9,10 @@ const updateNotifier = require('update-notifier');
 function main() {
   updateNotifier({
     pkg: {
-      name: 'public-ip',
-      version: '0.9.2'
+      name: pkg.name,
+      version: pkg.version
     },
-    updateCheckInterval: 1000 * 60 * 30 // 30 min
+    updateCheckInterval: 1000 * 60 * 60 * 24 // 24h
   }).notify();
 }
 
