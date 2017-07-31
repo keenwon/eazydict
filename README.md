@@ -12,6 +12,12 @@
 - 支持生词本
 - 可查询程序状态（累计查询次数，生词个数等）
 
+效果图:
+
+<center>
+  <img src="docs/images/screenshot.gif">
+</center>
+
 目录:
 <!-- TOC -->
 
