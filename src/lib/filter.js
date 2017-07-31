@@ -7,7 +7,7 @@ let pluginsConfig = config.output;
 function getCount(value) {
   let number = Number(value);
 
-  if (!number || number < 0) {
+  if (typeof number !== 'number' || number < 0) {
     return Infinity;
   }
 
