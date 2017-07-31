@@ -1,6 +1,6 @@
 {
   "name": "eazydict",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "简单易用的命令行词典",
   "main": "./index.js",
   "bin": {
@@ -17,6 +17,17 @@
     "name": "keenwon",
     "email": "semanwmj@gmail.com"
   },
+  "keywords": [
+    "eazydict",
+    "dictionary",
+    "translate",
+    "youdao",
+    "bing",
+    "google",
+    "terminal",
+    "console",
+    "linux"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/keenwon/eazydict/issues"
