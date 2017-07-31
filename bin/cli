@@ -89,7 +89,7 @@ program.on('--help', function () {
   console.log('');
   console.log('    查询短语 "hello"，同时保存到生词本：');
   console.log('    $ eazydict --save hello');
-  console.log('    $ eazydict --s hello');
+  console.log('    $ eazydict -s hello');
   console.log('');
   console.log('    查看历史记录：');
   console.log('    $ eazydict history');
