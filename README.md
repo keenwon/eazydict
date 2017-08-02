@@ -2,15 +2,17 @@
 
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![License][license-image]][license-url]
 
-简单易用的命令行词典，基于 Node 开发
+简单易用的命令行词典，基于 Node 开发。支持 Linux、Mac（部分功能支持 Windows）
 
-特色功能：
+主要功能：
 
+- 中英互译
 - 支持以插件形式集成词典，默认包含: [Google](http://github.com/keenwon/eazydict-google), [Bing](http://github.com/keenwon/eazydict-bing), [Youdao](http://github.com/keenwon/eazydict-youdao)
 - 支持本地缓存
 - 支持最近查询单词的历史记录
 - 支持生词本
-- 可查询程序状态（累计查询次数，生词个数等）
+- 可查询程序状态：累计查询次数，生词个数等
+- 更新提示：使用过成功新检测更新，并输出提示
 
 效果图:
 
