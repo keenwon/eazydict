@@ -26,6 +26,7 @@
 - [运行](#运行)
 - [插件](#插件)
 - [配置](#配置)
+- [缓存](#缓存)
 - [License](#license)
 
 <!-- /TOC -->
@@ -118,7 +119,11 @@ $ eazydict --help
 
 ## 配置
 
-TODO
+EazyDict 第一次运行的时候，会自动生成配置文件 .eazydict.yml 到用户的的 [Home](https://nodejs.org/api/os.html#os_os_homedir) 目录下。你可以根据自己的需求修改配置。参考 [.eazydict.yml](https://github.com/keenwon/eazydict/blob/master/.eazydict.yml)
+
+## 缓存
+
+EazyDict 会缓存你的查询过的单词。缓存使用 Sqlite，数据库文件在 `${home}/.eazydict/databasae.sqlite`
 
 ## License
 
