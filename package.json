@@ -36,6 +36,7 @@
   "dependencies": {
     "blessed": "^0.1.81",
     "chalk": "^2.0.1",
+    "chalk-animation": "^1.1.0",
     "cli-table2": "^0.2.0",
     "cli-width": "^2.1.0",
     "co": "^4.6.0",

@@ -39,6 +39,12 @@ let isSearchMode = false;
  */
 let keywords = '';
 
+/**
+ * status 动画
+ */
+let blinkTimer;
+let blinkCount = 0;
+
 let contentBox;
 let screen;
 let statusBox;
@@ -106,7 +112,16 @@ function setStatusData() {
   let content;
 
   if (isSearchMode) {
-    content = `  ${chalk.blue('退出')}：Eac、Ctrl-C | 请输入关键字: ${keywords}`;
+    let color;
+
+    // 已输入关键的话，不闪烁
+    if (keywords) {
+      color = str => str
+    } else {
+      color = blinkCount % 2 ? chalk.red : chalk.yellow;
+    }
+
+    content = `  ${chalk.blue('退出')}：Eac、Ctrl-C | ${color('请输入关键字')}: ${keywords}`;
   } else {
     // eslint-disable-next-line max-len
     content = `  共 ${activeWords.length} 条 | ${chalk.blue('退出')}: Esc、Ctrl-C、q; ${chalk.blue('删除')}: d-d; ${chalk.blue('搜索')}: / {|} {cyan-fg}{bold} Made With Heart by Keenwon{/bold}  `;
@@ -295,6 +310,34 @@ function bindMoveEvent() {
   screen.key(['pagedown', 'C-f'], () => move('pagedown'));
 }
 
+/**
+ * 闪烁，提示用户输入关键字
+ */
+function blinkStart() {
+  if (blinkTimer) {
+    return;
+  }
+
+  blinkTimer = setInterval(() => {
+    setStatusData();
+    blinkCount++;
+    screen.render();
+  }, 200);
+}
+
+/**
+ * 停止闪烁
+ */
+function blinkEnd() {
+  if (!blinkTimer) {
+    return;
+  }
+
+  clearInterval(blinkTimer);
+  blinkTimer = null;
+  blinkCount = 0;
+}
+
 function init(mode) {
   index = 0;
   offset = 0;
@@ -306,8 +349,10 @@ function init(mode) {
 
   if (mode === 'normal') {
     bindNormalEvent();
+    blinkEnd();
   } else {
     bindSearchEvent();
+    blinkStart();
   }
 
   wordBox.focus();
