@@ -22,3 +22,7 @@
 - [eazydict-google](http://github.com/keenwon/eazydict-google)
 - [eazydict-bing](http://github.com/keenwon/eazydict-bing)
 - [eazydict-youdao](http://github.com/keenwon/eazydict-youdao)
+
+## 发布与安装
+
+开发完成后，请发布npm包，用户可通过 `eazydict install <your-plugin-name>` 安装。
