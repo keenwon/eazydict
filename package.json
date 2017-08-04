@@ -1,6 +1,6 @@
 {
   "name": "eazydict",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "简单易用的命令行词典",
   "main": "./index.js",
   "bin": {
