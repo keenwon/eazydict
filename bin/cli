@@ -8,7 +8,8 @@ const {
   lookup,
   history,
   wordbook,
-  status
+  status,
+  install
 } = require('../index');
 
 /**
@@ -54,6 +55,17 @@ program
   .description('保存上一次查询的单词、短语到生词本')
   .action(() => {
     wordbook.saveLast();
+  });
+
+/**
+ * 安装插件
+ */
+program
+  .command('install <plugin-name>')
+  .alias('i')
+  .description('安装插件')
+  .action(function (pluginName) {
+    install(pluginName);
   });
 
 /**
