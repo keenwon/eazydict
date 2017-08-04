@@ -115,6 +115,10 @@ program.on('--help', function () {
   console.log('    $ eazydict wordbook');
   console.log('    $ eazydict w');
   console.log('');
+  console.log('    安装插件"eazydict-example":');
+  console.log('    $ eazydict i eazydict-example');
+  console.log('    $ eazydict install eazydict-example');
+  console.log('');
   console.log('    查看 EazyDict 版本信息:');
   console.log('    $ eazydict -V');
   console.log('    $ eazydict --version');
