@@ -29,6 +29,7 @@
 - [插件](#插件)
 - [配置文件](#配置文件)
 - [本地缓存](#本地缓存)
+- [ChangeLog](#changelog)
 - [License](#license)
 
 <!-- /TOC -->
@@ -128,6 +129,10 @@ EazyDict 第一次运行的时候，会自动生成配置文件 .eazydict.yml �
 ## 本地缓存
 
 EazyDict 会缓存你的查询过的单词。缓存使用 Sqlite，数据库文件在 `${home}/.eazydict/databasae.sqlite`
+
+## ChangeLog
+
+see [CHANGELOG.md](./CHANGELOG.md)
 
 ## License
 

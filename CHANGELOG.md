@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.2 (2017-08-05)
+
+* 添加插件安装功能 `eazydict install <plugin-name>`
+
 ## v1.0.6 (2017-08-04)
 
 * 生词本：蓝色在黑底下不明显，改为绿色 ([57a340c](https://github.com/keenwon/eazydict/commit/57a340c81f1acf5a2d14b850f6cae7b4d404b016))
