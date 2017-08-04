@@ -27,8 +27,8 @@
 - [安装](#安装)
 - [运行](#运行)
 - [插件](#插件)
-- [配置](#配置)
-- [缓存](#缓存)
+- [配置文件](#配置文件)
+- [本地缓存](#本地缓存)
 - [License](#license)
 
 <!-- /TOC -->
@@ -119,11 +119,13 @@ $ eazydict --help
 - [eazydict-bing](http://github.com/keenwon/eazydict-bing) (默认包含，无需安装)
 - [eazydict-youdao](http://github.com/keenwon/eazydict-youdao) (默认包含，无需安装)
 
-## 配置
+如果你有兴趣开发更多的插件，可以参考文档: [EazyDict 插件开发](./docs/plugins.md)
+
+## 配置文件
 
 EazyDict 第一次运行的时候，会自动生成配置文件 .eazydict.yml 到用户的的 [Home](https://nodejs.org/api/os.html#os_os_homedir) 目录下。你可以根据自己的需求修改配置。参考 [.eazydict.yml](https://github.com/keenwon/eazydict/blob/master/.eazydict.yml)
 
-## 缓存
+## 本地缓存
 
 EazyDict 会缓存你的查询过的单词。缓存使用 Sqlite，数据库文件在 `${home}/.eazydict/databasae.sqlite`
 
