@@ -7,12 +7,13 @@
 主要功能：
 
 - 中英互译
+- 输出翻译、音标、例句，并且可自由配置
 - 支持以插件形式集成词典，默认包含: [Google](http://github.com/keenwon/eazydict-google), [Bing](http://github.com/keenwon/eazydict-bing), [Youdao](http://github.com/keenwon/eazydict-youdao)
-- 支持本地缓存
-- 支持最近查询单词的历史记录
-- 支持生词本
+- 本地缓存
+- 历史记录
+- 生词本
 - 可查询程序状态：累计查询次数，生词个数等
-- 更新提示：使用过成功新检测更新，并输出提示
+- 更新提示：使用过程中会自动检测更新，并输出提示
 
 效果图:
 
