@@ -37,7 +37,12 @@
 
 ## 环境
 
-运行 EazyDict 需要 Node(**v6+**)、Npm，安装方法请查看 Node 官网：[https://nodejs.org/](https://nodejs.org/)
+运行 EazyDict 需要：
+
+- Node ( **v6+** )
+- NPM
+
+安装方法请查看 Node 官网：[https://nodejs.org/](https://nodejs.org/)
 
 ## 安装
 
@@ -53,7 +58,7 @@ npm i -g eazydict
 yarn global add eazydict
 ```
 
-> 注意：因为依赖了 node-sqlite3，会直接根据你的系统下载预编译版本，可能会比较慢，安装时可以添加 `--verbose` 查看详情
+> 注意：因为依赖了 node-sqlite3，会直接根据你的系统下载预编译版本，可能会比较慢，安装时可以添加 `--verbose` 查看详情。
 >
 > ```shell
 > npm i -g eazydict --verbose
