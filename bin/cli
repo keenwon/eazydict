@@ -127,6 +127,17 @@ program.on('--help', function () {
 
 program.parse(process.argv);
 
-if (process.argv.length === 2) {
+function showHelp() {
+  // 没有输入任何参数
+  if (process.argv.length === 2) {
+    return true;
+  }
+
+  let argus = process.argv.slice(2);
+
+  return argus.every(item => item.startsWith('-'));
+}
+
+if (showHelp()) {
   program.help();
 }
