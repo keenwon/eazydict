@@ -9,9 +9,10 @@
 - 中英互译
 - 输出翻译、音标、例句，并且可自由配置
 - 支持以插件形式集成词典，默认包含: [Google](http://github.com/keenwon/eazydict-google), [Bing](http://github.com/keenwon/eazydict-bing), [Youdao](http://github.com/keenwon/eazydict-youdao)
-- 本地缓存
+- 本地缓存，可设置缓存时长
 - 历史记录
 - 生词本
+- 支持代理（需要插件支持，内置的Google、Bing、Youdao插件已实现代理功能）
 - 可查询程序状态：累计查询次数，生词个数等
 - 更新提示：使用过程中会自动检测更新，并输出提示
 
