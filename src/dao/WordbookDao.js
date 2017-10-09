@@ -82,7 +82,7 @@ function getWordbookCount(historyId) {
     if (typeof historyId === 'number') {
       findOptions.where = {
         historyId: {
-          $ne: historyId
+          [sequelize.Op.ne]: historyId
         }
       };
     }

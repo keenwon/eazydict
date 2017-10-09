@@ -20,7 +20,8 @@ const sequelize = new Sequelize({
     min: 0,
     idle: 10000
   },
-  storage: storagePath
+  storage: storagePath,
+  operatorsAliases: false
 });
 
 module.exports = sequelize;
