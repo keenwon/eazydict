@@ -19,10 +19,11 @@ program
   .usage('<words...>')
   .description('简单易用的命令行词典 https://github.com/keenwon/eazydict')
   .option('-s, --save', '查询单词，同时保存到生词本')
+  .option('-r, --raw', '不转换为小写，查询原始的输入值')
   .version(pkg.version)
   .action(function (...argus) {
     let words = argus.slice(0, -1);
-    lookup(...words, program.save);
+    lookup(...words, program.save || false, program.raw || false);
   });
 
 /**
@@ -32,9 +33,10 @@ program
   .command('lookup <words...>')
   .alias('l')
   .option('-s, --save', '查询单词，同时保存到生词本')
+  .option('-r, --raw', '不转换为小写，查询原始的输入值')
   .description('查询 words 的翻译')
   .action(function (words) {
-    lookup(...words, program.save);
+    lookup(...words, program.save || false, program.raw || false);
   });
 
 /**

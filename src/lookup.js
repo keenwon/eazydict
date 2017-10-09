@@ -16,15 +16,21 @@ const {
  * 单词查询
  */
 function lookup(...argus) {
-  let save = argus.slice(-1)[0];
+  let raw = argus.slice(-1)[0];
+  let save = argus.slice(-2, -1)[0];
   let words = argus
-    .slice(0, -1)
+    .slice(0, -2)
     .map(word => word.trim())
     .join(' ')
     .slice(0, 240); // 限制长度
 
-  debug('words: %s', words);
+  if (!raw) {
+    words = words.toLowerCase();
+  }
+
+  debug('raw: %s', raw);
   debug('save: %s', save);
+  debug('words: %s', words);
 
   return co(function* () {
     loadStart();
