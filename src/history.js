@@ -37,7 +37,7 @@ function history() {
     loadSuccess('历史记录查询成功 \n');
     let answer = yield historyCli(list);
 
-    return lookup(answer.history, null);
+    return lookup(answer.history, false, false);
   }).catch(err => {
     loadFail();
     console.error(err);
