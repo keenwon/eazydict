@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.1 (2017-10-10)
+
+* fix #3
+
 ## v1.2.0 (2017-10-09)
 
 * status边框设置为纯白，保证终端有透明度时也能看到 ([88faaf7](https://github.com/keenwon/eazydict/commit/88faaf7f0c59b0b2e7312270e91a3e99db22c455))
