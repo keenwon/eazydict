@@ -136,7 +136,7 @@ function main(data, width, saveInfo) {
 
   // 输出生词本保存信息
   if (saveInfo) {
-    result.push(`  ${chalk.red(unicons.cli('cross') + ' ' + saveInfo)}`);
+    result.push(`  ${chalk.green(unicons.cli('check') + ' 已保存到生词本')}`);
     result.push('');
   }
 

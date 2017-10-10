@@ -38,9 +38,7 @@ function lookup(...argus) {
     let data = yield lookupService(words, save);
 
     // 保存到生词本的信息
-    let saveInfo = data.saveInfo && data.saveInfo.message
-      ? data.saveInfo.message
-      : null;
+    let saveInfo = data.saveInfo || false;
 
     let outputData = filter(data.output);
     let output = lookupCli(outputData, 0, saveInfo);
