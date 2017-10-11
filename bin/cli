@@ -23,7 +23,12 @@ program
   .version(pkg.version)
   .action(function (...argus) {
     let words = argus.slice(0, -1);
-    lookup(...words, program.save || false, program.raw || false);
+    let options = {
+      save: program.save || false,
+      raw: program.raw || false
+    };
+
+    lookup(words, options);
   });
 
 /**
@@ -36,7 +41,11 @@ program
   .option('-r, --raw', '不转换为小写，查询原始的输入值')
   .description('查询 words 的翻译')
   .action(function (words) {
-    lookup(...words, program.save || false, program.raw || false);
+    let options = {
+      save: program.save || false,
+      raw: program.raw || false
+    }
+    lookup(...words, options);
   });
 
 /**

@@ -15,15 +15,17 @@ const {
 /**
  * 单词查询
  */
-function lookup(...argus) {
-  let raw = argus.slice(-1)[0];
-  let save = argus.slice(-2, -1)[0];
-  let words = argus
-    .slice(0, -2)
+function lookup(words, options = {}) {
+  let raw = options.raw || false;
+  let save = options.save || false;
+
+  words = Array.isArray(words) ? words : [words];
+  words = words
     .map(word => word.trim())
     .join(' ')
     .slice(0, 240); // 限制长度
 
+  // 大小写转换
   if (!raw) {
     words = words.toLowerCase();
   }
