@@ -19,6 +19,8 @@ function lookup(words, options = {}) {
   let raw = options.raw || false;
   let save = options.save || false;
 
+  /* eslint-disable no-param-reassign */
+
   words = Array.isArray(words) ? words : [words];
   words = words
     .map(word => word.trim())
@@ -29,6 +31,8 @@ function lookup(words, options = {}) {
   if (!raw) {
     words = words.toLowerCase();
   }
+
+  /* eslint-enable no-param-reassign */
 
   debug('raw: %s', raw);
   debug('save: %s', save);
