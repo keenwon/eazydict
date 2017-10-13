@@ -52,10 +52,12 @@ program
  * 历史记录
  */
 program
-  .command('history')
+  .command('history [count]')
   .alias('h')
   .description('显示最近查询的历史记录')
-  .action(history);
+  .action(count => {
+    history(count);
+  });
 
 /**
  * 保存到生词本

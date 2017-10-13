@@ -17,17 +17,27 @@ const {
 const defaultHistoryCount = 10;
 
 /**
+ * 计算历史记录条数
+ * 优先级: 命令行输入 > 配置文件 > 默认值
+ */
+function getHistoryCount(count) {
+  if (Number.isInteger(count) && count >= 0) {
+    return count;
+  } else if (Number.isInteger(config.historyCount) && config.historyCount >= 0) {
+    return config.historyCount;
+  }
+
+  return defaultHistoryCount;
+}
+
+/**
  * 历史记录
  */
-function history() {
+function history(count) {
   loadStart();
 
   return co(function* () {
-    // 计算历史记录的展示条数
-    let historyCount = Number.isInteger(config.historyCount) && config.historyCount >= 0
-      ? config.historyCount
-      : defaultHistoryCount;
-
+    let historyCount = getHistoryCount(+count);
     let data = yield historyService.getHistory(historyCount);
 
     if (!data || !data.length) {
