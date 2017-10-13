@@ -142,8 +142,8 @@ program.on('--help', function () {
   console.log('    $ eazydict install eazydict-example');
   console.log('');
   console.log('    查看 EazyDict 版本信息:');
-  console.log('    $ eazydict -V');
-  console.log('    $ eazydict --version');
+  console.log('    $ eazydict version');
+  console.log('    $ eazydict v');
   console.log('');
 });
 
