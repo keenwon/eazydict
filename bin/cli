@@ -9,7 +9,8 @@ const {
   history,
   wordbook,
   status,
-  install
+  install,
+  version
 } = require('../index');
 
 /**
@@ -20,7 +21,6 @@ program
   .description('简单易用的命令行词典 https://github.com/keenwon/eazydict')
   .option('-s, --save', '查询单词，同时保存到生词本')
   .option('-r, --raw', '不转换为小写，查询原始的输入值')
-  .version(pkg.version)
   .action(function (...argus) {
     let words = argus.slice(0, -1);
     let options = {
@@ -47,6 +47,15 @@ program
     }
     lookup(...words, options);
   });
+
+/**
+ * 版本信息
+ */
+program
+  .command('version')
+  .alias('v')
+  .description('版本信息')
+  .action(version);
 
 /**
  * 历史记录
