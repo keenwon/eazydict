@@ -82,16 +82,18 @@ $ eazydict --help
 
   Options:
 
-    -s, --save     查询单词，同时保存到生词本
-    -V, --version  output the version number
-    -h, --help     output usage information
+    -s, --save  查询单词，同时保存到生词本
+    -r, --raw   不转换为小写，查询原始的输入值
+    -h, --help  output usage information
 
 
   Commands:
 
     lookup|l [options] <words...>  查询 words 的翻译
-    history|h                      显示最近查询的历史记录
+    version|v                      版本信息
+    history|h [count]              显示最近查询的历史记录
     save|s                         保存上一次查询的单词、短语到生词本
+    install|i <plugin-name>        安装插件
     wordbook|w                     打开生词本
     status                         显示统计信息
 
@@ -118,9 +120,13 @@ $ eazydict --help
     $ eazydict wordbook
     $ eazydict w
 
+    安装插件"eazydict-example":
+    $ eazydict i eazydict-example
+    $ eazydict install eazydict-example
+
     查看 EazyDict 版本信息:
-    $ eazydict -V
-    $ eazydict --version
+    $ eazydict version
+    $ eazydict v
 ```
 
 ## 插件
