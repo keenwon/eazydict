@@ -16,7 +16,7 @@ function online(words) {
   let pluginList = plugins.map(plugin => {
     debug(`load plugin ${plugin} use config: %O`, config.plugins[plugin]);
 
-    // eslint-disable-next-line
+    // eslint-disable-next-line global-require
     return require(plugin)(words, config.plugins[plugin]);
   });
 
