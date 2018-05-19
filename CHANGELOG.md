@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.2 (2017-10-10)
+
+* 升级依赖，支持 node v10.x
+
 ## v1.2.1 (2017-10-10)
 
 * [[`d3279c3`](https://github.com/keenwon/eazydict/commit/d3279c353d07a9bf8a5ccbe6c17fe33dfdf308cd)] - fix [#3](https://github.com/keenwon/eazydict/issues/3)
