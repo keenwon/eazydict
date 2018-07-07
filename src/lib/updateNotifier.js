@@ -4,7 +4,7 @@ const updateNotifier = require('update-notifier');
 const pkg = require('../../package.json');
 
 /**
- * 测试，发布 npm 后修改
+ * npm package 的更新检查
  */
 function main() {
   updateNotifier({

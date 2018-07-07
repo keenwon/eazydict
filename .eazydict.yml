@@ -14,6 +14,10 @@ expires: '2M'
 # 彩色输出
 colorful: true
 
+# eazydict history 默认展示的历史记录条数
+# 配置为 0，等同于关闭历史（更准确说是查不出历史）
+historyCount: 10
+
 # 输出设置
 output:
   youdao:

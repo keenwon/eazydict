@@ -68,6 +68,10 @@ function mergeWordAndHistory(words, histories) {
   words.forEach((word, index) => {
     let history = histories[index];
 
+    if (!history) {
+      return;
+    }
+
     result.push(Object.assign({}, word.dataValues, {
       value: history.dataValues.words,
       output: history.dataValues.output
