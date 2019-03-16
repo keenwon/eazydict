@@ -1,6 +1,6 @@
 'use strict'
 
-const Table = require('cli-table2')
+const Table = require('cli-table3')
 
 module.exports = function (items) {
   let table = new Table({
