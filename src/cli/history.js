@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-const inquirer = require('inquirer');
+const inquirer = require('inquirer')
 
 module.exports = function (list) {
   return inquirer.prompt({
@@ -10,7 +10,7 @@ module.exports = function (list) {
     choices: list,
     pageSize: Infinity,
     filter: function (answer) {
-      return answer.replace(/^[^.]+\.\s/, '');
+      return answer.replace(/^[^.]+\.\s/, '')
     }
-  });
+  })
 }

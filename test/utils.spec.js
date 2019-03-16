@@ -1,24 +1,21 @@
-'use strict';
+'use strict'
 
 /* eslint-disable no-console, max-nested-callbacks */
 
-const moment = require('moment');
+const moment = require('moment')
 const {
   pad,
   isExpired,
   fuzzy,
   getLetters,
   arrayContains
-} = require('../src/utils');
+} = require('../src/utils')
 
-const mocha = require('mocha');
-const chai = require('chai');
-chai.should();
+const chai = require('chai')
+chai.should()
 
 describe('Utils 测试', function () {
-
   describe('# pad 测试', function () {
-
     let objs = [
       {
         str: 'test',
@@ -39,21 +36,19 @@ describe('Utils 测试', function () {
         str: 'test测试',
         result: 'test测试  '
       }
-    ];
+    ]
 
     objs.forEach((obj) => {
-      let title = `test: string ${obj.str}, width: ${obj.width || 'default'}`;
+      let title = `test: string ${obj.str}, width: ${obj.width || 'default'}`
 
       it(title, function () {
         return pad(obj.str, obj.width)
-          .should.equal(obj.result);
-      });
-    });
-
-  });
+          .should.equal(obj.result)
+      })
+    })
+  })
 
   describe('# isExpired 测试', function () {
-
     let objs = [
       {
         timeStr: moment().subtract(2, 'months').format(),
@@ -74,21 +69,19 @@ describe('Utils 测试', function () {
         range: '1s',
         result: true
       }
-    ];
+    ]
 
     objs.forEach((obj) => {
-      let title = `test: time ${obj.timeStr}, range: ${obj.range || 'default'}`;
+      let title = `test: time ${obj.timeStr}, range: ${obj.range || 'default'}`
 
       it(title, function () {
         return isExpired(obj.timeStr, obj.range)
-          .should.equal(obj.result);
-      });
-    });
-
-  });
+          .should.equal(obj.result)
+      })
+    })
+  })
 
   describe('# fuzzy 测试', function () {
-
     let objs = [
       {
         keywords: 'foo',
@@ -128,34 +121,30 @@ describe('Utils 测试', function () {
           match: false
         }
       }
-    ];
+    ]
 
     let fn = str => {
-      return '<' + str + '>';
-    };
+      return '<' + str + '>'
+    }
 
     objs.forEach((obj) => {
-      let title = `test: keywords ${obj.keywords}, str: ${obj.str}`;
+      let title = `test: keywords ${obj.keywords}, str: ${obj.str}`
 
       it(title, function () {
         return fuzzy(obj.keywords, obj.str, fn)
-          .should.deep.equal(obj.result);
-      });
-    });
-
-  });
+          .should.deep.equal(obj.result)
+      })
+    })
+  })
 
   describe('# getLetters 测试', function () {
-
     it('test', function () {
       return getLetters().join('').should
-        .equal('abcdefghijklmnopqrstuvwxyz');
-    });
-
-  });
+        .equal('abcdefghijklmnopqrstuvwxyz')
+    })
+  })
 
   describe('# arrayContains 测试', function () {
-
     let objs = [
       {
         a: [1, 2, 3],
@@ -187,16 +176,15 @@ describe('Utils 测试', function () {
         b: 1,
         result: false
       }
-    ];
+    ]
 
     objs.forEach((obj) => {
-      let title = `test: ${obj.a} contains ${obj.b}`;
+      let title = `test: ${obj.a} contains ${obj.b}`
 
       it(title, function () {
         return arrayContains(obj.a, obj.b)
-          .should.equal(obj.result);
-      });
-    });
-
-  });
-});
+          .should.equal(obj.result)
+      })
+    })
+  })
+})

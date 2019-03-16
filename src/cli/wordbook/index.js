@@ -1,167 +1,170 @@
-'use strict';
+'use strict'
 
-const blessed = require('blessed');
-const chalk = require('chalk');
-const lookupCli = require('../lookup');
-const wordbookService = require('../../service/wordbook');
-const utils = require('../../utils');
+const chalk = require('chalk')
+const lookupCli = require('../lookup')
+const wordbookService = require('../../service/wordbook')
+const utils = require('../../utils')
 
-let createContentBox = require('./contentBox');
-let createScreen = require('./screen');
-let createStatusBox = require('./statusBox');
-let createWordBox = require('./wordBox');
+let createContentBox = require('./contentBox')
+let createScreen = require('./screen')
+let createStatusBox = require('./statusBox')
+let createWordBox = require('./wordBox')
 
-let words;
-let activeWords;
+let words
+let activeWords
 
 /**
  * 当前单词索引
  */
-let index = 0;
+let index = 0
 
 /**
  * 内容区域的 offset
  */
-let offset = 0;
+let offset = 0
 
 /**
  * 删除模式
  */
-let isDeleteMode = false;
+let isDeleteMode = false
 
 /**
  * 搜索模式
  */
-let isSearchMode = false;
+let isSearchMode = false
 
 /**
  * 搜索关键字
  */
-let keywords = '';
+let keywords = ''
 
 /**
  * status 动画
  */
-let blinkTimer;
-let blinkCount = 0;
+let blinkTimer
+let blinkCount = 0
 
-let contentBox;
-let screen;
-let statusBox;
-let wordBox;
+let contentBox
+let screen
+let statusBox
+let wordBox
 
 /**
  * 初始化生词列表
  */
-function setWordList() {
+
+function setWordList () {
   // 过滤单词
   activeWords = words.filter(word => {
     if (!isSearchMode || !keywords) {
-      word.coloredValue = word.value;
-      return true;
+      word.coloredValue = word.value
+      return true
     }
 
     // 测试匹配，高亮关键字
     let result = utils.fuzzy(keywords, word.value, function (str) {
-      return chalk.red(str);
-    });
+      return chalk.red(str)
+    })
 
     if (result.match) {
-      word.coloredValue = result.str;
+      word.coloredValue = result.str
     } else {
-      word.coloredValue = '';
+      word.coloredValue = ''
     }
 
-    return result.match;
-  });
+    return result.match
+  })
 
   // 生词列表
   let wordList = activeWords.map(word => {
-    return word.coloredValue || word.value;
-  });
+    return word.coloredValue || word.value
+  })
 
-  wordBox.setItems(wordList);
+  wordBox.setItems(wordList)
 }
 
 /**
  * 显示当前生词
  */
-function setContentData() {
-  if (activeWords[index]) {
-    let label = '';
-    let content = '';
 
-    label = ` ${activeWords[index].value} `;
+function setContentData () {
+  if (activeWords[index]) {
+    let label = ''
+    let content = ''
+
+    label = ` ${activeWords[index].value} `
     content = lookupCli(
       activeWords[index].output,
       contentBox.width
-    );
+    )
 
-    contentBox.setLabel(label);
-    contentBox.setContent(content);
+    contentBox.setLabel(label)
+    contentBox.setContent(content)
   } else {
-    contentBox.removeLabel();
-    contentBox.setContent('');
+    contentBox.removeLabel()
+    contentBox.setContent('')
   }
 }
 
 /**
  * 设置状态栏内容
  */
-function setStatusData() {
-  let content;
+
+function setStatusData () {
+  let content
 
   if (isSearchMode) {
-    let color;
+    let color
 
     // 已输入关键的话，不闪烁
     if (keywords) {
       color = str => str
     } else {
-      color = blinkCount % 2 ? chalk.red : chalk.yellow;
+      color = blinkCount % 2 ? chalk.red : chalk.yellow
     }
 
-    content = `  ${chalk.green('退出')}：Eac、Ctrl-C | ${color('请输入关键字')}: ${keywords}`;
+    content = `  ${chalk.green('退出')}：Eac、Ctrl-C | ${color('请输入关键字')}: ${keywords}`
   } else {
     // eslint-disable-next-line max-len
-    content = `  共 ${activeWords.length} 条 | ${chalk.green('退出')}: Esc、Ctrl-C、q; ${chalk.green('删除')}: d-d; ${chalk.green('搜索')}: / {|} {cyan-fg}{bold} Made With Heart by Keenwon{/bold}  `;
+    content = `  共 ${activeWords.length} 条 | ${chalk.green('退出')}: Esc、Ctrl-C、q; ${chalk.green('删除')}: d-d; ${chalk.green('搜索')}: / {|} {cyan-fg}{bold} Made With Heart by Keenwon{/bold}  `
   }
 
-  statusBox.setContent(content);
+  statusBox.setContent(content)
 }
 
 /**
  * 移动
  */
-function move(direction) {
-  let _index, length, step;
+
+function move (direction) {
+  let _index, length, step
 
   if (wordBox.focused) {
-    _index = index;
-    length = activeWords.length;
-    step = wordBox.height - 4;
+    _index = index
+    length = activeWords.length
+    step = wordBox.height - 4
   } else {
-    _index = offset;
-    length = contentBox.getScrollHeight();
-    step = Math.floor((contentBox.height - 1) / 2);
+    _index = offset
+    length = contentBox.getScrollHeight()
+    step = Math.floor((contentBox.height - 1) / 2)
   }
 
   switch (direction) {
     case 'up':
-      _index--;
-      break;
+      _index--
+      break
     case 'down':
-      _index++;
-      break;
+      _index++
+      break
     case 'pageup':
-      _index = _index - step;
-      break;
+      _index = _index - step
+      break
     case 'pagedown':
-      _index = _index + step;
-      break;
+      _index = _index + step
+      break
     default:
-      _index++;
-      break;
+      _index++
+      break
   }
 
   /**
@@ -171,209 +174,216 @@ function move(direction) {
   /* eslint-disable no-lonely-if */
   if (wordBox.focused && (direction === 'up' || direction === 'down')) {
     if (_index < 0) {
-      _index = length + _index;
+      _index = length + _index
     } else if (_index >= length) {
-      _index = _index - length;
+      _index = _index - length
     }
   } else {
     if (_index < 0) {
-      _index = 0;
+      _index = 0
     } else if (_index >= length) {
-      _index = length - 1;
+      _index = length - 1
     }
   }
   /* eslint-enable no-lonely-if */
 
   // 设置全局值
   if (wordBox.focused) {
-    offset = 0;
-    index = _index;
+    offset = 0
+    index = _index
 
-    wordBox.select(index);
-    setContentData();
+    wordBox.select(index)
+    setContentData()
   } else {
-    offset = _index;
+    offset = _index
   }
 
-  contentBox.scrollTo(offset);
-  screen.render();
+  contentBox.scrollTo(offset)
+  screen.render()
 }
 
 /**
  * 删除当前的单词
  */
-function deleteWord() {
+
+function deleteWord () {
   // 从 activeWords 找到元素Id
-  let id = activeWords[index].id;
+  let id = activeWords[index].id
 
   // 从 words 中删除
-  let wordsIndex = words.findIndex(item => item.id === id);
-  words.splice(wordsIndex, 1);
+  let wordsIndex = words.findIndex(item => item.id === id)
+  words.splice(wordsIndex, 1)
 
-  setWordList();
-  setContentData();
-  setStatusData();
-  screen.render();
+  setWordList()
+  setContentData()
+  setStatusData()
+  screen.render()
 
   wordbookService
     .remove(id)
     .catch(err => {
-      console.error(err);
-    });
+      console.error(err)
+    })
 }
 
 /**
  * 禁用事件
  */
-function disableEvent() {
+
+function disableEvent () {
   Object.keys(screen._events).map(type => {
     if (type.startsWith('key')) {
-      delete screen._events[type];
+      delete screen._events[type]
     }
-  });
+  })
 }
 
 /**
  * 设置搜索事件
  */
-function bindSearchEvent() {
-  disableEvent();
 
-  let letters = utils.getLetters();
+function bindSearchEvent () {
+  disableEvent()
 
-  letters.push('backspace');
+  let letters = utils.getLetters()
+
+  letters.push('backspace')
 
   // 退出快捷键
   screen.key(['escape', 'C-c'], () => {
-    keywords = '';
-    init('normal');
-  });
+    keywords = ''
+    init('normal')
+  })
 
   screen.key(letters, (i, key) => {
     if (key.name === 'backspace') {
-      keywords = keywords.slice(0, -1);
+      keywords = keywords.slice(0, -1)
     } else {
-      keywords += key.name;
+      keywords += key.name
     }
 
-    init('search');
-  });
+    init('search')
+  })
 
-  bindMoveEvent();
+  bindMoveEvent()
 }
 
 /**
  * 设置常规事件
  */
-function bindNormalEvent() {
-  disableEvent();
+
+function bindNormalEvent () {
+  disableEvent()
 
   // 退出快捷键
   screen.key(['escape', 'q', 'C-c'], () => {
-    return process.exit(0);
-  });
+    return process.exit(0)
+  })
 
   // 删除当前生词
   screen.key('d', () => {
     if (isDeleteMode) {
-      deleteWord();
-      return;
+      deleteWord()
+      return
     }
 
-    isDeleteMode = true;
+    isDeleteMode = true
     setTimeout(() => {
-      isDeleteMode = false;
-    }, 200);
-  });
+      isDeleteMode = false
+    }, 200)
+  })
 
   // 搜索
-  screen.key('/', () => init('search'));
+  screen.key('/', () => init('search'))
 
-  bindMoveEvent();
+  bindMoveEvent()
 }
 
 /**
  * 绑定光标移动事件
  */
-function bindMoveEvent() {
+
+function bindMoveEvent () {
   // tab切换
   screen.key(['tab', 'left', 'right'], () => {
     wordBox.focused
       ? contentBox.focus()
-      : wordBox.focus();
-  });
+      : wordBox.focus()
+  })
 
   // move
-  screen.key(['up', 'k'], () => move('up'));
-  screen.key(['down', 'j', 'g-g'], () => move('down'));
-  screen.key(['pageup', 'C-b'], () => move('pageup'));
-  screen.key(['pagedown', 'C-f'], () => move('pagedown'));
+  screen.key(['up', 'k'], () => move('up'))
+  screen.key(['down', 'j', 'g-g'], () => move('down'))
+  screen.key(['pageup', 'C-b'], () => move('pageup'))
+  screen.key(['pagedown', 'C-f'], () => move('pagedown'))
 }
 
 /**
  * 闪烁，提示用户输入关键字
  */
-function blinkStart() {
+
+function blinkStart () {
   if (blinkTimer) {
-    return;
+    return
   }
 
   blinkTimer = setInterval(() => {
-    setStatusData();
-    blinkCount++;
-    screen.render();
-  }, 200);
+    setStatusData()
+    blinkCount++
+    screen.render()
+  }, 200)
 }
 
 /**
  * 停止闪烁
  */
-function blinkEnd() {
+
+function blinkEnd () {
   if (!blinkTimer) {
-    return;
+    return
   }
 
-  clearInterval(blinkTimer);
-  blinkTimer = null;
-  blinkCount = 0;
+  clearInterval(blinkTimer)
+  blinkTimer = null
+  blinkCount = 0
 }
 
-function init(mode) {
-  index = 0;
-  offset = 0;
-  isSearchMode = mode === 'search';
+function init (mode) {
+  index = 0
+  offset = 0
+  isSearchMode = mode === 'search'
 
-  setWordList();
-  setContentData();
-  setStatusData();
+  setWordList()
+  setContentData()
+  setStatusData()
 
   if (mode === 'normal') {
-    bindNormalEvent();
-    blinkEnd();
+    bindNormalEvent()
+    blinkEnd()
   } else {
-    bindSearchEvent();
-    blinkStart();
+    bindSearchEvent()
+    blinkStart()
   }
 
-  wordBox.focus();
-  wordBox.select(index);
-  screen.render();
+  wordBox.focus()
+  wordBox.select(index)
+  screen.render()
 }
 
-function main(data) {
-  words = data;
-  activeWords = data;
+function main (data) {
+  words = data
+  activeWords = data
 
-  screen = createScreen(); // 必须先创建 screen
-  contentBox = createContentBox();
-  statusBox = createStatusBox();
-  wordBox = createWordBox();
+  screen = createScreen() // 必须先创建 screen
+  contentBox = createContentBox()
+  statusBox = createStatusBox()
+  wordBox = createWordBox()
 
-  screen.append(wordBox);
-  screen.append(contentBox);
-  screen.append(statusBox);
+  screen.append(wordBox)
+  screen.append(contentBox)
+  screen.append(statusBox)
 
-  init('normal');
+  init('normal')
 }
 
-module.exports = main;
+module.exports = main

@@ -1,18 +1,18 @@
-'use strict';
+'use strict'
 
 /**
  * 生词本
  */
 
-const Sequelize = require('sequelize');
-const connection = require('../db/connection');
+const Sequelize = require('sequelize')
+const connection = require('../db/connection')
 
 let fields = {
   // 对应的History ID
   historyId: {
     type: Sequelize.INTEGER
   }
-};
+}
 
 let options = {
   tableName: 'wordbook',
@@ -22,14 +22,14 @@ let options = {
       fields: ['historyId']
     }
   ]
-};
+}
 
-const Wordbook = connection.define('wordbook', fields, options);
+const Wordbook = connection.define('wordbook', fields, options)
 
 module.exports = function () {
   return Wordbook
     .sync({
       logging: false
     })
-    .then(() => Wordbook);
-};
+    .then(() => Wordbook)
+}

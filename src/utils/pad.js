@@ -1,19 +1,20 @@
-'use strict';
+'use strict'
 
-const stringWidth = require('string-width');
+const stringWidth = require('string-width')
 
 /**
  * 根据宽度，在字符串右侧补齐空格
  */
+
 module.exports = function (str, width = 10) {
-  let padChar = ' ';
-  let length = stringWidth(str);
+  let padChar = ' '
+  let length = stringWidth(str)
 
   if (!length || length > width) {
-    return str;
+    return str
   }
 
-  let padStr = padChar.repeat(width - length);
+  let padStr = padChar.repeat(width - length)
 
-  return `${str}${padStr}`;
-};
+  return `${str}${padStr}`
+}

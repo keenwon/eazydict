@@ -1,11 +1,12 @@
-'use strict';
+'use strict'
 
-const blessed = require('blessed');
+const blessed = require('blessed')
 
 /**
  * 创建详情窗口
  */
-function createContentBox() {
+
+function createContentBox () {
   return blessed.box({
     padding: 1,
     scrollable: true,
@@ -30,7 +31,7 @@ function createContentBox() {
         }
       }
     }
-  });
+  })
 }
 
-module.exports = createContentBox;
+module.exports = createContentBox

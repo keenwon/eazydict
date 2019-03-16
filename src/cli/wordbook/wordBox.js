@@ -1,11 +1,12 @@
-'use strict';
+'use strict'
 
-const blessed = require('blessed');
+const blessed = require('blessed')
 
 /**
  * 创建单词列表窗口
  */
-function createWordBox() {
+
+function createWordBox () {
   return blessed.list({
     label: ' Words ',
     padding: 1,
@@ -33,7 +34,7 @@ function createWordBox() {
         }
       }
     }
-  });
+  })
 }
 
-module.exports = createWordBox;
+module.exports = createWordBox

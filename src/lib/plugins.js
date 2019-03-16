@@ -1,20 +1,20 @@
-'use strict';
+'use strict'
 
-const debug = require('./debug');
-const config = require('./config');
-const pkg = require('../../package.json');
+const config = require('./config')
+const pkg = require('../../package.json')
 
-let plugins = [];
+let plugins = []
 const dependencies = Object.keys(pkg.dependencies)
-  .filter(d => /^eazydict\-.+/.test(d));
+  .filter(d => /^eazydict-.+/.test(d))
 
 /**
  * 根据配置文件刷选启用的 plugin
  */
-if(Array.isArray(config.enable)) {
+
+if (Array.isArray(config.enable)) {
   plugins = config.enable.filter(plugin => {
-    return dependencies.includes(plugin);
-  });
+    return dependencies.includes(plugin)
+  })
 }
 
-module.exports = plugins;
+module.exports = plugins

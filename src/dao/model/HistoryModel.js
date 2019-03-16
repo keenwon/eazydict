@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
 /**
  * 历史记录
  */
 
-const Sequelize = require('sequelize');
-const connection = require('../db/connection');
+const Sequelize = require('sequelize')
+const connection = require('../db/connection')
 
 let fields = {
   // 查询的单词&短语
@@ -34,7 +34,7 @@ let fields = {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
   }
-};
+}
 
 let options = {
   indexes: [
@@ -58,14 +58,14 @@ let options = {
       ]
     }
   ]
-};
+}
 
-const History = connection.define('history', fields, options);
+const History = connection.define('history', fields, options)
 
 module.exports = function () {
   return History
     .sync({
       logging: false
     })
-    .then(() => History);
-};
+    .then(() => History)
+}

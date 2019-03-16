@@ -1,43 +1,45 @@
-'use strict';
+'use strict'
 
-const debug = require('../../lib/debug');
-const co = require('co');
-const os = require('os');
-const path = require('path');
-const fs = require('fs');
-const filesize = require('filesize');
+const debug = require('../../lib/debug')
+const co = require('co')
+const os = require('os')
+const path = require('path')
+const fs = require('fs')
+const filesize = require('filesize')
 const {
   getHistoryCount,
   getLookupCount
-} = require('../../dao/HistoryDao');
+} = require('../../dao/HistoryDao')
 const {
   getWordbookCount
-} = require('../../dao/WordbookDao');
+} = require('../../dao/WordbookDao')
 
-const home = os.homedir();
-const databasePath = path.join(home, '/.eazydict/database.sqlite');
+const home = os.homedir()
+const databasePath = path.join(home, '/.eazydict/database.sqlite')
 
 /**
  * 获取数据库大小
  */
-function getDatabaseSize() {
+
+function getDatabaseSize () {
   return new Promise((resolve, reject) => {
     fs.stat(databasePath, function (err, data) {
       if (err) {
-        debug(err);
-        return resolve('未知');
+        debug(err)
+        return resolve('未知')
       }
 
-      resolve(filesize(data.size));
-    });
-  });
+      resolve(filesize(data.size))
+    })
+  })
 }
 
 /**
  * 获取 EazyDict 状态
  */
-function getStatus() {
-  return co(function* () {
+
+function getStatus () {
+  return co(function * () {
     let [
       historyCount,
       lookupCount,
@@ -48,17 +50,17 @@ function getStatus() {
       getLookupCount(),
       getWordbookCount(),
       getDatabaseSize()
-    ];
+    ]
 
     return {
       historyCount,
       lookupCount,
       workbookCount,
       databaseSize
-    };
-  });
+    }
+  })
 }
 
 module.exports = {
   getStatus
-};
+}

@@ -1,18 +1,19 @@
-'use strict';
+'use strict'
 
-const blessed = require('blessed');
+const blessed = require('blessed')
 
 /**
  * 创建 screen
  */
-function createScreen() {
+
+function createScreen () {
   let screen = blessed.screen({
     fullUnicode: true
-  });
+  })
 
-  screen.title = 'EazyDict Wordbook';
+  screen.title = 'EazyDict Wordbook'
 
-  return screen;
+  return screen
 }
 
-module.exports = createScreen;
+module.exports = createScreen

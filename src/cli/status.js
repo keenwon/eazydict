@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-const Table = require('cli-table2');
+const Table = require('cli-table2')
 
 module.exports = function (items) {
   let table = new Table({
@@ -8,9 +8,9 @@ module.exports = function (items) {
     style: {
       border: ['white']
     }
-  });
+  })
 
-  table.push(...items);
+  table.push(...items)
 
-  return table.toString();
+  return table.toString()
 }
