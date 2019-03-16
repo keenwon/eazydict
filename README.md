@@ -42,7 +42,7 @@
 
 运行 EazyDict 需要：
 
-- Node ( **v6+** )
+- Node ( **v8+** )
 - NPM
 
 安装方法请查看 Node 官网：[https://nodejs.org/](https://nodejs.org/)
