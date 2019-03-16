@@ -7,7 +7,10 @@
     "eazydict": "./bin/cli"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "npm run test:lint && npm run test:unit",
+    "test:lint": "elint lint \"src/**/*.js\" \"test/**/*.js\" index.js --fix",
+    "test:unit": "mocha \"test/**/*.js\"",
+    "beforecommit": "elint lint commit"
   },
   "repository": {
     "type": "git",
@@ -61,7 +64,8 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^6.0.2",
-    "mocha-eslint": "^5.0.0"
+    "elint": "^1.11.0",
+    "elint-preset-kw": "^1.8.1",
+    "mocha": "^6.0.2"
   }
 }
