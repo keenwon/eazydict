@@ -32,6 +32,11 @@
     "linux"
   ],
   "license": "MIT",
+  "files": [
+    "bin",
+    "src",
+    "index.js"
+  ],
   "bugs": {
     "url": "https://github.com/keenwon/eazydict/issues"
   },
