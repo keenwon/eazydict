@@ -1,23 +1,18 @@
 'use strict'
 
 const debug = require('./lib/debug')
-const co = require('co')
 const moment = require('moment')
 const filter = require('./lib/filter')
 const notifier = require('./lib/updateNotifier')
 const lookupService = require('./service/lookup')
 const lookupCli = require('./cli/lookup')
-const {
-  loadStart,
-  loadSuccess,
-  loadFail
-} = require('./cli/loader')
+const { loadStart, loadSuccess, loadFail } = require('./cli/loader')
 
 /**
  * 单词查询
  */
 
-function lookup (words, options = {}) {
+async function lookup (words, options = {}) {
   let startTime = Date.now() // 查询开始时间
   let raw = options.raw || false
   let save = options.save || false
@@ -41,10 +36,10 @@ function lookup (words, options = {}) {
   debug('save: %s', save)
   debug('words: %s', words)
 
-  return co(function * () {
+  try {
     loadStart()
 
-    let data = yield lookupService(words, save)
+    let data = await lookupService(words, save)
 
     // 保存到生词本的信息
     let saveInfo = data.saveInfo || false
@@ -58,10 +53,10 @@ function lookup (words, options = {}) {
     console.log(output)
 
     notifier()
-  }).catch(err => {
+  } catch (err) {
     loadFail()
     console.error(err)
-  })
+  }
 }
 
 module.exports = lookup

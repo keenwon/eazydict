@@ -3,7 +3,6 @@
 'use strict';
 
 const program = require('commander');
-const pkg = require('../package.json');
 const {
   lookup,
   history,

@@ -45,7 +45,6 @@
     "chalk-animation": "^1.6.0",
     "cli-table2": "^0.2.0",
     "cli-width": "^2.2.0",
-    "co": "^4.6.0",
     "commander": "^2.19.0",
     "debug": "^4.1.1",
     "eazydict-bing": "^2.0.0",

@@ -1,6 +1,5 @@
 'use strict'
 
-const co = require('co')
 const lookup = require('./lookup')
 const config = require('./lib/config')
 const historyService = require('./service/history')
@@ -33,12 +32,12 @@ function getHistoryCount (count) {
  * 历史记录
  */
 
-function history (count) {
+async function history (count) {
   loadStart()
 
-  return co(function * () {
+  try {
     let historyCount = getHistoryCount(+count)
-    let data = yield historyService.getHistory(historyCount)
+    let data = await historyService.getHistory(historyCount)
 
     if (!data || !data.length) {
       loadSuccess('暂无历史记录')
@@ -54,12 +53,13 @@ function history (count) {
 
     loadSuccess('历史记录查询成功 \n')
 
-    let answer = yield historyCli(list)
-    return lookup(answer.history)
-  }).catch(err => {
+    let answer = await historyCli(list)
+
+    lookup(answer.history)
+  } catch (err) {
     loadFail()
     console.error(err)
-  })
+  }
 }
 
 module.exports = history

@@ -5,7 +5,6 @@
  */
 
 const debug = require('../lib/debug')
-const co = require('co')
 const sequelize = require('sequelize')
 const WordbookModel = require('./model/WordbookModel')
 
@@ -13,57 +12,51 @@ const WordbookModel = require('./model/WordbookModel')
  * 保存生词
  */
 
-function save (historyId) {
-  return co(function * () {
-    let wordbookModel = yield new WordbookModel()
+async function save (historyId) {
+  try {
+    let wordbookModel = await new WordbookModel()
 
-    yield wordbookModel.create({
+    await wordbookModel.create({
       historyId
     })
-
-    return true
-  }).catch(error => {
+  } catch (error) {
     // historyId 已存在的话，忽略
-    if (error.name === 'SequelizeUniqueConstraintError') {
-      return true
+    if (error.name !== 'SequelizeUniqueConstraintError') {
+      throw error
     }
+  }
 
-    throw error
-  })
+  return true
 }
 
 /**
  * 删除生词
  */
 
-function remove (id) {
-  return co(function * () {
-    let wordbookModel = yield new WordbookModel()
+async function remove (id) {
+  let wordbookModel = await new WordbookModel()
 
-    yield wordbookModel.destroy({
-      where: {
-        id
-      }
-    })
-
-    return true
+  await wordbookModel.destroy({
+    where: {
+      id
+    }
   })
+
+  return true
 }
 
 /**
  * 获取生词
  */
 
-function getAll (offset = 0, limit = 100) {
-  return co(function * () {
-    let wordbookModel = yield new WordbookModel()
-    return yield wordbookModel.findAll({
-      offset,
-      limit,
-      order: [
-        ['id', 'DESC']
-      ]
-    })
+async function getAll (offset = 0, limit = 100) {
+  let wordbookModel = await new WordbookModel()
+  return wordbookModel.findAll({
+    offset,
+    limit,
+    order: [
+      ['id', 'DESC']
+    ]
   })
 }
 
@@ -74,9 +67,11 @@ function getAll (offset = 0, limit = 100) {
  * 也就是即使达到上限，也可以添加已经添加过的词
  */
 
-function getWordbookCount (historyId) {
-  return co(function * () {
-    let wordbookModel = yield new WordbookModel()
+async function getWordbookCount (historyId) {
+  let count
+
+  try {
+    let wordbookModel = await new WordbookModel()
     let findOptions = {
       attributes: [
         [sequelize.fn('COUNT', sequelize.col('id')), 'num']
@@ -91,13 +86,15 @@ function getWordbookCount (historyId) {
       }
     }
 
-    let data = yield wordbookModel.findOne(findOptions)
+    let data = await wordbookModel.findOne(findOptions)
 
-    return data.dataValues.num
-  }).catch(err => {
+    count = data.dataValues.num
+  } catch (err) {
     debug(err)
-    return '未知'
-  })
+    count = '未知'
+  }
+
+  return count
 }
 
 module.exports = {
