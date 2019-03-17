@@ -1,6 +1,10 @@
 # EazyDict
 
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![License][license-image]][license-url]
+[![NPM version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![License][license-image]][license-url]
+[![Lgtm Alerts][lgtm-alerts-image]][lgtm-alerts-url]
+[![Lgtm Grade][lgtm-grade-image]][lgtm-grade-url]
 
 简单易用的命令行词典，基于 Node 开发。支持 Linux、Mac（部分功能支持 Windows）
 
@@ -171,9 +175,13 @@ see [CHANGELOG.md](./CHANGELOG.md)
 
 MIT.
 
-[npm-image]: https://img.shields.io/npm/v/eazydict.svg?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/eazydict.svg?style=flat-square&maxAge=3600
 [npm-url]: https://www.npmjs.com/package/eazydict
-[travis-image]: https://img.shields.io/travis/keenwon/eazydict.svg?style=flat-square
+[travis-image]: https://img.shields.io/travis/keenwon/eazydict.svg?style=flat-square&maxAge=3600&logo=travis
 [travis-url]: https://travis-ci.org/keenwon/eazydict
-[license-image]: https://img.shields.io/npm/l/express.svg?style=flat-square
+[license-image]: https://img.shields.io/npm/l/express.svg?style=flat-square&maxAge=3600
 [license-url]: https://github.com/keenwon/eazydict/blob/master/LICENSE
+[lgtm-alerts-image]: https://img.shields.io/lgtm/alerts/g/keenwon/eazydict.svg?logo=lgtm&logoWidth=18&maxAge=3600&style=flat-square
+[lgtm-alerts-url]: https://lgtm.com/projects/g/keenwon/eazydict/alerts/
+[lgtm-grade-image]: https://img.shields.io/lgtm/grade/javascript/g/keenwon/eazydict.svg?logo=lgtm&logoWidth=18&maxAge=3600&style=flat-square
+[lgtm-grade-url]: https://lgtm.com/projects/g/keenwon/eazydict/context:javascript
