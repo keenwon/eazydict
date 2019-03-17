@@ -33,7 +33,7 @@ debug(`read config from ${userConfigFile}: %O`, userConfig)
 Object.keys(userConfig).forEach(item => {
   let userConfigItem = userConfig[item]
 
-  if (item === 'enable') {
+  if (item === 'enable' && Array.isArray(userConfigItem) && userConfigItem.length) {
     config[item] = userConfigItem.map(key => {
       return `eazydict-${key}`
     })

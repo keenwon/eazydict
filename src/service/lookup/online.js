@@ -1,6 +1,8 @@
 'use strict'
 
 const debug = require('../../lib/debug')
+const chalk = require('chalk')
+const unicons = require('unicons')
 const plugins = require('../../lib/plugins')
 const config = require('../../lib/config')
 
@@ -10,8 +12,11 @@ const config = require('../../lib/config')
 
 function online (words) {
   if (plugins && !plugins.length) {
-    console.log('没有启用任何插件')
-    return
+    console.log()
+    console.log()
+    console.log(chalk.red(`  ${unicons.cli('cross')} 没有启用任何插件!`))
+    console.log()
+    process.exit()
   }
 
   let pluginList = plugins.map(plugin => {
