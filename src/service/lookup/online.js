@@ -1,6 +1,6 @@
 'use strict'
 
-const debug = require('../../lib/debug')
+const debug = require('debug')('eazydict:core:service:lookup')
 const chalk = require('chalk')
 const unicons = require('unicons')
 const plugins = require('../../lib/plugins')

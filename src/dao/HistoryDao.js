@@ -4,7 +4,7 @@
  * 历史记录
  */
 
-const debug = require('../lib/debug')
+const debug = require('debug')('eazydict:core:dao:history')
 const sequelize = require('sequelize')
 const { isExpired } = require('../utils')
 const config = require('../lib/config')

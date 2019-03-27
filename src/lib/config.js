@@ -1,6 +1,6 @@
 'use strict'
 
-const debug = require('./debug')
+const debug = require('debug')('eazydict:core:lib:config')
 const os = require('os')
 const path = require('path')
 const fs = require('fs-extra')

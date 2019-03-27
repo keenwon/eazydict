@@ -1,6 +1,6 @@
 'use strict'
 
-const debug = require('./lib/debug')
+const debug = require('debug')('eazydict:core:lookup')
 const moment = require('moment')
 const filter = require('./lib/filter')
 const notifier = require('./lib/updateNotifier')

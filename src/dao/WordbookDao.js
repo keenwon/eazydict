@@ -4,7 +4,7 @@
  * 生词本
  */
 
-const debug = require('../lib/debug')
+const debug = require('debug')('eazydict:core:dao:wordbook')
 const sequelize = require('sequelize')
 const WordbookModel = require('./model/WordbookModel')
 
