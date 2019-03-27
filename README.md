@@ -154,10 +154,10 @@ EazyDict 会缓存你的查询过的单词。缓存使用 Sqlite，数据库文�
 当程序运行异常时（例如和你的配置文件不符），可以使用 DEBUG 模式查看更多信息
 
 ```shell
-DEBUG=eazydict:cli eazydict love
+DEBUG=eazydict:core:* eazydict love
 ```
 
-同样也可以单独查看插件的 DEBUG 信息，具体参数可以查看各插件文档&源码
+同样也可以单独查看插件的 DEBUG 信息，具体参数可以查看各插件文档 & 源码
 
 ## 本地数据的备份与恢复
 
