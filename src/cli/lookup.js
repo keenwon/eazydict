@@ -3,11 +3,10 @@
 /* eslint-disable max-params */
 
 const chalk = require('chalk')
-const unicons = require('unicons')
 const stringBreak = require('string-break')
 const cliWidth = require('cli-width')
 const config = require('../lib/config')
-const { pad } = require('../utils')
+const { pad, icon } = require('../utils')
 
 let windowWidth
 
@@ -58,7 +57,6 @@ function main (data, width, saveInfo) {
 
   // 输出翻译信息
   data.forEach(item => {
-    let circle = unicons.cli('circle')
     let pluginName = chalk.blue.bold(item.pluginName)
     let url = chalk.black.underline(item.url)
 
@@ -70,7 +68,7 @@ function main (data, width, saveInfo) {
      * 标题
      */
     if (hasPhonetics || hasTranslates || hasExamples) {
-      result.push(`  ${circle} ${pluginName}   ${url}`)
+      result.push(`  ${icon.circle} ${pluginName}   ${url}`)
       result.push('')
       count++
     }
@@ -136,14 +134,14 @@ function main (data, width, saveInfo) {
 
   // 输出生词本保存信息
   if (saveInfo) {
-    result.push(`  ${chalk.green(unicons.cli('check') + ' 已保存到生词本')}`)
+    result.push(`  ${chalk.green(icon.check + ' 已保存到生词本')}`)
     result.push('')
   }
 
   if (!count) {
     result = [
       '',
-      chalk.red(`  ${unicons.cli('cross')} 没有查询到任何结果!`),
+      chalk.red(`  ${icon.cross} 没有查询到任何结果!`),
       ''
     ]
   }

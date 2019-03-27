@@ -1,10 +1,10 @@
 'use strict'
 
 const chalk = require('chalk')
-const unicons = require('unicons')
 const wordbookService = require('./service/wordbook')
 const wordbookCli = require('./cli/wordbook')
 const { loadStart, loadSuccess, loadFail } = require('./cli/loader')
+const { icon } = require('./utils')
 
 /**
  * 保存查询过的单词到生词本
@@ -14,13 +14,11 @@ async function saveLast (offset = 0) {
   try {
     let result = await wordbookService.saveLast(offset)
 
-    let icon, message
+    let message
     if (result.success) {
-      icon = unicons.cli('check')
-      message = chalk.green(`  ${icon} ${result.message}`)
+      message = chalk.green(`  ${icon.check} ${result.message}`)
     } else {
-      icon = unicons.cli('cross')
-      message = chalk.red(`  ${icon} ${result.message}`)
+      message = chalk.red(`  ${icon.cross} ${result.message}`)
     }
 
     console.log(`\n${message}\n`)
