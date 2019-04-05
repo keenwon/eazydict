@@ -15,7 +15,7 @@ function version () {
   console.log('  插件:')
   plugins.forEach(plugin => {
     // eslint-disable-next-line global-require
-    let pluginVersion = require(`${plugin}/package.json`).version
+    const pluginVersion = require(`${plugin}/package.json`).version
     console.log(`    ${plugin}: ${pluginVersion}`)
   })
   console.log('')

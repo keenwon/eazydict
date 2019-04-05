@@ -7,7 +7,7 @@
 const Sequelize = require('sequelize')
 const connection = require('../db/connection')
 
-let fields = {
+const fields = {
   // 查询的单词&短语
   words: {
     type: Sequelize.STRING
@@ -36,7 +36,7 @@ let fields = {
   }
 }
 
-let options = {
+const options = {
   indexes: [
     {
       fields: ['words']
@@ -63,9 +63,7 @@ let options = {
 const History = connection.define('history', fields, options)
 
 module.exports = function () {
-  return History
-    .sync({
-      logging: false
-    })
-    .then(() => History)
+  return History.sync({
+    logging: false
+  }).then(() => History)
 }

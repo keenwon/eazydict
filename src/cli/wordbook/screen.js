@@ -7,7 +7,7 @@ const blessed = require('blessed')
  */
 
 function createScreen () {
-  let screen = blessed.screen({
+  const screen = blessed.screen({
     fullUnicode: true
   })
 

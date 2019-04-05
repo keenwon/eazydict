@@ -14,7 +14,7 @@ const WordbookModel = require('./model/WordbookModel')
 
 async function save (historyId) {
   try {
-    let wordbookModel = await new WordbookModel()
+    const wordbookModel = await new WordbookModel()
 
     await wordbookModel.create({
       historyId
@@ -34,7 +34,7 @@ async function save (historyId) {
  */
 
 async function remove (id) {
-  let wordbookModel = await new WordbookModel()
+  const wordbookModel = await new WordbookModel()
 
   await wordbookModel.destroy({
     where: {
@@ -50,13 +50,12 @@ async function remove (id) {
  */
 
 async function getAll (offset = 0, limit = 100) {
-  let wordbookModel = await new WordbookModel()
+  const wordbookModel = await new WordbookModel()
+
   return wordbookModel.findAll({
     offset,
     limit,
-    order: [
-      ['id', 'DESC']
-    ]
+    order: [['id', 'DESC']]
   })
 }
 
@@ -71,11 +70,9 @@ async function getWordbookCount (historyId) {
   let count
 
   try {
-    let wordbookModel = await new WordbookModel()
-    let findOptions = {
-      attributes: [
-        [sequelize.fn('COUNT', sequelize.col('id')), 'num']
-      ]
+    const wordbookModel = await new WordbookModel()
+    const findOptions = {
+      attributes: [[sequelize.fn('COUNT', sequelize.col('id')), 'num']]
     }
 
     if (typeof historyId === 'number') {
@@ -86,7 +83,7 @@ async function getWordbookCount (historyId) {
       }
     }
 
-    let data = await wordbookModel.findOne(findOptions)
+    const data = await wordbookModel.findOne(findOptions)
 
     count = data.dataValues.num
   } catch (err) {

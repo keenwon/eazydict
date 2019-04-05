@@ -15,8 +15,8 @@ if (!fs.pathExistsSync(userConfigFile)) {
   fs.copySync(defaultConfigFile, userConfigFile)
 }
 
-let content = fs.readFileSync(userConfigFile, 'utf-8')
-let config = {}
+const content = fs.readFileSync(userConfigFile, 'utf-8')
+const config = {}
 let userConfig
 
 // 解析 yaml
@@ -31,7 +31,7 @@ debug(`read config from ${userConfigFile}: %O`, userConfig)
 
 // format config
 Object.keys(userConfig).forEach(item => {
-  let userConfigItem = userConfig[item]
+  const userConfigItem = userConfig[item]
 
   if (item === 'enable' && Array.isArray(userConfigItem) && userConfigItem.length) {
     config[item] = userConfigItem.map(key => {

@@ -5,8 +5,8 @@
  */
 
 module.exports = function (keywords, str, fn) {
-  let source = str.split('')
-  let target = keywords.split('')
+  const source = str.split('')
+  const target = keywords.split('')
   let targetIndex = 0
 
   if (target.length > source.length) {

@@ -19,7 +19,7 @@ function online (words) {
     process.exit()
   }
 
-  let pluginList = plugins.map(plugin => {
+  const pluginList = plugins.map(plugin => {
     debug(`load plugin ${plugin} use config: %O`, config.plugins[plugin])
 
     // eslint-disable-next-line global-require
@@ -27,7 +27,7 @@ function online (words) {
   })
 
   return Promise.all(pluginList).then(data => {
-    let successData = []
+    const successData = []
 
     data.forEach(item => {
       if (item.error.code !== 0) {

@@ -10,16 +10,14 @@ const { pad, icon } = require('../utils')
 
 let windowWidth
 
-chalk.enabled = typeof config.colorful === 'boolean'
-  ? config.colorful
-  : true
+chalk.enabled = typeof config.colorful === 'boolean' ? config.colorful : true
 
 /**
  * 高亮关键字
  */
 
 function highlight (str, words) {
-  let regexp = new RegExp(words, 'ig')
+  const regexp = new RegExp(words, 'ig')
 
   return str.replace(regexp, substr => {
     return chalk.red(substr)
@@ -31,7 +29,7 @@ function highlight (str, words) {
  */
 
 function formatExample (str, words, firstLineIndent, indent) {
-  let exampleWidth = windowWidth - 14
+  const exampleWidth = windowWidth - 14
 
   // 兼容 windows 上 git-bash 等
   if (exampleWidth <= 0) {
@@ -42,9 +40,7 @@ function formatExample (str, words, firstLineIndent, indent) {
     .map((line, index) => {
       let highlightLine = highlight(line, words)
 
-      return index === 0
-        ? firstLineIndent + highlightLine
-        : indent + highlightLine
+      return index === 0 ? firstLineIndent + highlightLine : indent + highlightLine
     })
     .join('\n')
 }
@@ -57,12 +53,12 @@ function main (data, width, saveInfo) {
 
   // 输出翻译信息
   data.forEach(item => {
-    let pluginName = chalk.blue.bold(item.pluginName)
-    let url = chalk.black.underline(item.url)
+    const pluginName = chalk.blue.bold(item.pluginName)
+    const url = chalk.black.underline(item.url)
 
-    let hasPhonetics = item.phonetics && item.phonetics.length
-    let hasTranslates = item.translates && item.translates.length
-    let hasExamples = item.examples && item.examples.length
+    const hasPhonetics = item.phonetics && item.phonetics.length
+    const hasTranslates = item.translates && item.translates.length
+    const hasExamples = item.examples && item.examples.length
 
     /**
      * 标题
@@ -78,16 +74,18 @@ function main (data, width, saveInfo) {
      */
     if (hasPhonetics) {
       let phoneticLine = '    '
+
       item.phonetics.forEach(phonetic => {
-        let value = chalk.gray.bold(phonetic.value)
+        const value = chalk.gray.bold(phonetic.value)
 
         if (phonetic.type) {
-          let type = chalk.red(phonetic.type)
+          const type = chalk.red(phonetic.type)
           phoneticLine += `${type} ${value}  `
         } else {
           phoneticLine += `${value}  `
         }
       })
+
       result.push(phoneticLine + '')
       result.push('')
     }
@@ -97,10 +95,10 @@ function main (data, width, saveInfo) {
      */
     if (hasTranslates) {
       item.translates.forEach(translate => {
-        let trans = translate.trans
+        const trans = translate.trans
 
         if (translate.type) {
-          let type = chalk.yellow(pad(translate.type, 8))
+          const type = chalk.yellow(pad(translate.type, 8))
           result.push(`    ${type} ${trans}`)
         } else {
           result.push(`    ${trans}`)
@@ -116,12 +114,12 @@ function main (data, width, saveInfo) {
       result.push(`    ${chalk.green('例句:')}`)
 
       item.examples.forEach(example => {
-        let fromFirstLineIndent = `    ${chalk.yellow.bold('+')} `
-        let toFirstLineIndent = `    ${chalk.green.bold('-')} `
-        let indent = '      '
+        const fromFirstLineIndent = `    ${chalk.yellow.bold('+')} `
+        const toFirstLineIndent = `    ${chalk.green.bold('-')} `
+        const indent = '      '
 
-        let fromStr = formatExample(example.from, item.words, fromFirstLineIndent, indent)
-        let toStr = formatExample(example.to, item.words, toFirstLineIndent, indent)
+        const fromStr = formatExample(example.from, item.words, fromFirstLineIndent, indent)
+        const toStr = formatExample(example.to, item.words, toFirstLineIndent, indent)
 
         result.push('')
         result.push(fromStr)
@@ -139,11 +137,7 @@ function main (data, width, saveInfo) {
   }
 
   if (!count) {
-    result = [
-      '',
-      chalk.red(`  ${icon.cross} 没有查询到任何结果!`),
-      ''
-    ]
+    result = ['', chalk.red(`  ${icon.cross} 没有查询到任何结果!`), '']
   }
 
   return result.join('\n')

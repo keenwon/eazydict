@@ -13,12 +13,12 @@ function install (pluginName) {
     forceInstall: true
   }
 
-  npmi(options, function (err, result) {
+  npmi(options, function (err) {
     if (err) {
       return console.error(err.stack)
     }
 
-    let message = chalk.green(`${options.name} installed successfully`)
+    const message = chalk.green(`${options.name} installed successfully`)
     console.log(`\n${message}\n`)
   })
 }

@@ -21,8 +21,8 @@ program
   .option('-s, --save', '查询单词，同时保存到生词本')
   .option('-r, --raw', '不转换为小写，查询原始的输入值')
   .action(function (...argus) {
-    let words = argus.slice(0, -1);
-    let options = {
+    const words = argus.slice(0, -1);
+    const options = {
       save: program.save || false,
       raw: program.raw || false
     };
@@ -40,10 +40,11 @@ program
   .option('-r, --raw', '不转换为小写，查询原始的输入值')
   .description('查询 words 的翻译')
   .action(function (words) {
-    let options = {
+    const options = {
       save: program.save || false,
       raw: program.raw || false
     }
+
     lookup(...words, options);
   });
 
@@ -154,7 +155,7 @@ function showHelp() {
     return true;
   }
 
-  let argus = process.argv.slice(2);
+  const argus = process.argv.slice(2);
 
   return argus.every(item => item.startsWith('-'));
 }

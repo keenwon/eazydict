@@ -62,7 +62,7 @@ function setWordList () {
     }
 
     // 测试匹配，高亮关键字
-    let result = utils.fuzzy(keywords, word.value, function (str) {
+    const result = utils.fuzzy(keywords, word.value, function (str) {
       return chalk.red(str)
     })
 
@@ -76,7 +76,7 @@ function setWordList () {
   })
 
   // 生词列表
-  let wordList = activeWords.map(word => {
+  const wordList = activeWords.map(word => {
     return word.coloredValue || word.value
   })
 
@@ -208,10 +208,10 @@ function move (direction) {
 
 function deleteWord () {
   // 从 activeWords 找到元素Id
-  let id = activeWords[index].id
+  const id = activeWords[index].id
 
   // 从 words 中删除
-  let wordsIndex = words.findIndex(item => item.id === id)
+  const wordsIndex = words.findIndex(item => item.id === id)
   words.splice(wordsIndex, 1)
 
   setWordList()
@@ -245,7 +245,7 @@ function disableEvent () {
 function bindSearchEvent () {
   disableEvent()
 
-  let letters = utils.getLetters()
+  const letters = utils.getLetters()
 
   letters.push('backspace')
 

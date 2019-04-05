@@ -3,14 +3,14 @@
 const { getRecentList, getByIds } = require('../../dao/HistoryDao')
 const wordbookDao = require('../../dao/WordbookDao')
 
-let max = 300
+const max = 300
 
 /**
  * 保存查询过的单词到生词本
  */
 
 async function saveLast (offset) {
-  let recentList = await getRecentList(offset, 1)
+  const recentList = await getRecentList(offset, 1)
   if (!recentList || !recentList.length) {
     return {
       success: false,
@@ -18,9 +18,9 @@ async function saveLast (offset) {
     }
   }
 
-  let data = recentList[0]
+  const data = recentList[0]
 
-  let canInsert = await _canInsert(data.id)
+  const canInsert = await _canInsert(data.id)
   if (!canInsert) {
     return {
       success: false,
@@ -42,7 +42,8 @@ async function saveLast (offset) {
  */
 
 async function save (historyId) {
-  let canInsert = await _canInsert(historyId)
+  const canInsert = await _canInsert(historyId)
+
   if (!canInsert) {
     return {
       success: false,
@@ -58,8 +59,8 @@ async function save (historyId) {
  */
 
 async function getAll (limit) {
-  let words = await wordbookDao.getAll(0, limit)
-  let historyIds = words.map(word => {
+  const words = await wordbookDao.getAll(0, limit)
+  const historyIds = words.map(word => {
     return word.dataValues.historyId
   })
 
@@ -88,7 +89,7 @@ function remove (id) {
  */
 
 async function _canInsert (historyId) {
-  let count = await wordbookDao.getWordbookCount(historyId)
+  const count = await wordbookDao.getWordbookCount(historyId)
   return count < max
 }
 

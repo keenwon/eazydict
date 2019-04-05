@@ -13,7 +13,7 @@ const wordbookService = require('../wordbook')
  */
 
 async function lookup (words, save) {
-  let localData = await local(words)
+  const localData = await local(words)
   let saveInfo // 保存到生词本的结果信息
 
   debug('local data: %O', localData)
@@ -45,10 +45,10 @@ async function lookup (words, save) {
   /**
    * 查询在线数据
    */
-  let onlineData = await online(words)
+  const onlineData = await online(words)
   let historyId
 
-  let data = {
+  const data = {
     words,
     output: onlineData,
     plugins: JSON.stringify(config.enable)

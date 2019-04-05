@@ -33,7 +33,7 @@ function getDatabaseSize () {
  */
 
 async function getStatus () {
-  let [historyCount, lookupCount, workbookCount, databaseSize] = await Promise.all([
+  const [historyCount, lookupCount, workbookCount, databaseSize] = await Promise.all([
     getHistoryCount(),
     getLookupCount(),
     getWordbookCount(),

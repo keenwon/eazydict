@@ -13,9 +13,9 @@ const { loadStart, loadSuccess, loadFail } = require('./cli/loader')
  */
 
 async function lookup (words, options = {}) {
-  let startTime = Date.now() // 查询开始时间
-  let raw = options.raw || false
-  let save = options.save || false
+  const startTime = Date.now() // 查询开始时间
+  const raw = options.raw || false
+  const save = options.save || false
 
   /* eslint-disable no-param-reassign */
 
@@ -39,15 +39,15 @@ async function lookup (words, options = {}) {
   try {
     loadStart()
 
-    let data = await lookupService(words, save)
+    const data = await lookupService(words, save)
 
     // 保存到生词本的信息
-    let saveInfo = data.saveInfo || false
+    const saveInfo = data.saveInfo || false
 
-    let outputData = filter(data.output)
-    let output = lookupCli(outputData, 0, saveInfo)
-    let endTime = Date.now() // 查询结束时间
-    let duration = moment.duration(endTime - startTime).asSeconds() // 耗时
+    const outputData = filter(data.output)
+    const output = lookupCli(outputData, 0, saveInfo)
+    const endTime = Date.now() // 查询结束时间
+    const duration = moment.duration(endTime - startTime).asSeconds() // 耗时
 
     loadSuccess(`Look up "${words}" in ${duration}s:`)
     console.log(output)

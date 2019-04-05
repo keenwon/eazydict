@@ -15,7 +15,7 @@ const HistoryModel = require('./model/HistoryModel')
  */
 
 async function create (data) {
-  let historyModel = await new HistoryModel()
+  const historyModel = await new HistoryModel()
   return historyModel.create(data)
 }
 
@@ -25,12 +25,12 @@ async function create (data) {
 
 async function update (id, data) {
   // 查询原始数据
-  let originData = await _find({
+  const originData = await _find({
     id
   })
 
   // 修改数据
-  let updateData = Object.assign({}, originData.dataValues, data, {
+  const updateData = Object.assign({}, originData.dataValues, data, {
     count: ++originData.dataValues.count,
     cacheAt: Date.now()
   })
@@ -48,12 +48,12 @@ async function search (words) {
   let result
 
   // 搜索数据
-  let data = await _find({ words })
+  const data = await _find({ words })
 
   // 数据存在且未过期的话，count + 1
   if (data && !isExpired(data.dataValues.cacheAt, config.expires)) {
     hitCache = true
-    let id = data.dataValues.id
+    const id = data.dataValues.id
     await _incrementCount(id)
   }
 
@@ -82,7 +82,7 @@ async function search (words) {
  */
 
 async function getRecentList (offset = 0, limit = 10) {
-  let historyModel = await new HistoryModel()
+  const historyModel = await new HistoryModel()
 
   return historyModel.findAll({
     offset,
@@ -96,7 +96,7 @@ async function getRecentList (offset = 0, limit = 10) {
  */
 
 async function getByIds (ids) {
-  let historyModel = await new HistoryModel()
+  const historyModel = await new HistoryModel()
 
   return historyModel.findAll({
     where: {
@@ -113,9 +113,9 @@ async function getHistoryCount () {
   let count
 
   try {
-    let historyModel = await new HistoryModel()
+    const historyModel = await new HistoryModel()
 
-    let data = await historyModel.findOne({
+    const data = await historyModel.findOne({
       attributes: [[sequelize.fn('COUNT', sequelize.col('id')), 'num']]
     })
 
@@ -136,9 +136,9 @@ async function getLookupCount () {
   let count
 
   try {
-    let historyModel = await new HistoryModel()
+    const historyModel = await new HistoryModel()
 
-    let data = await historyModel.findOne({
+    const data = await historyModel.findOne({
       attributes: [[sequelize.fn('SUM', sequelize.col('count')), 'num']]
     })
 
@@ -156,7 +156,7 @@ async function getLookupCount () {
  */
 
 async function _find (where) {
-  let historyModel = await new HistoryModel()
+  const historyModel = await new HistoryModel()
 
   return historyModel.findOne({
     where
@@ -168,7 +168,7 @@ async function _find (where) {
  */
 
 async function _update (data, where) {
-  let historyModel = await new HistoryModel()
+  const historyModel = await new HistoryModel()
 
   return historyModel.update(data, {
     where
@@ -180,7 +180,7 @@ async function _update (data, where) {
  */
 
 async function _incrementCount (id) {
-  let historyModel = await new HistoryModel()
+  const historyModel = await new HistoryModel()
 
   return historyModel.increment('count', {
     where: {

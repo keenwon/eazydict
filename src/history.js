@@ -4,11 +4,7 @@ const lookup = require('./lookup')
 const config = require('./lib/config')
 const historyService = require('./service/history')
 const historyCli = require('./cli/history')
-const {
-  loadStart,
-  loadSuccess,
-  loadFail
-} = require('./cli/loader')
+const { loadStart, loadSuccess, loadFail } = require('./cli/loader')
 
 // 缺省情况下的历史记录条数
 const defaultHistoryCount = 10
@@ -36,24 +32,24 @@ async function history (count) {
   loadStart()
 
   try {
-    let historyCount = getHistoryCount(+count)
-    let data = await historyService.getHistory(historyCount)
+    const historyCount = getHistoryCount(+count)
+    const data = await historyService.getHistory(historyCount)
 
     if (!data || !data.length) {
       loadSuccess('暂无历史记录')
       return
     }
 
-    let list = data.map((item, i) => {
-      let words = item.dataValues.words
-      let index = i + 1
+    const list = data.map((item, i) => {
+      const words = item.dataValues.words
+      const index = i + 1
 
       return `${index < 10 ? ' ' + index : index}. ${words}`
     })
 
     loadSuccess('历史记录查询成功 \n')
 
-    let answer = await historyCli(list)
+    const answer = await historyCli(list)
 
     lookup(answer.history)
   } catch (err) {

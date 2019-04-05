@@ -12,7 +12,7 @@ const { icon } = require('./utils')
 
 async function saveLast (offset = 0) {
   try {
-    let result = await wordbookService.saveLast(offset)
+    const result = await wordbookService.saveLast(offset)
 
     let message
     if (result.success) {
@@ -42,7 +42,7 @@ function open () {
         return
       }
 
-      let words = mergeWordAndHistory(data.words, data.histories)
+      const words = mergeWordAndHistory(data.words, data.histories)
 
       loadSuccess('Open Wordbook')
       wordbookCli(words)
@@ -58,10 +58,10 @@ function open () {
  */
 
 function mergeWordAndHistory (words, histories) {
-  let result = []
+  const result = []
 
   words.forEach((word, index) => {
-    let history = histories[index]
+    const history = histories[index]
 
     if (!history) {
       return
