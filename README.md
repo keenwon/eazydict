@@ -179,7 +179,7 @@ MIT.
 [npm-url]: https://www.npmjs.com/package/eazydict
 [travis-image]: https://img.shields.io/travis/keenwon/eazydict.svg?style=flat-square&maxAge=3600&logo=travis
 [travis-url]: https://travis-ci.org/keenwon/eazydict
-[license-image]: https://img.shields.io/npm/l/express.svg?style=flat-square&maxAge=3600
+[license-image]: https://img.shields.io/npm/l/eazydict.svg?style=flat-square&maxAge=3600
 [license-url]: https://github.com/keenwon/eazydict/blob/master/LICENSE
 [lgtm-alerts-image]: https://img.shields.io/lgtm/alerts/g/keenwon/eazydict.svg?logo=lgtm&logoWidth=18&maxAge=3600&style=flat-square
 [lgtm-alerts-url]: https://lgtm.com/projects/g/keenwon/eazydict/alerts/
