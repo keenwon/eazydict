@@ -73,6 +73,6 @@
     "chai": "^4.2.0",
     "elint": "^2.0.0-alpha.3",
     "elint-preset-kw": "^1.8.1",
-    "mocha": "^6.2.0"
+    "mocha": "^6.2.1"
   }
 }
