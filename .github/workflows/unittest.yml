@@ -1,0 +1,33 @@
+name: unittest
+
+on:
+  push:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  test:
+    name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node_version: [8, 10, 12]
+        os: [ubuntu-latest, macOS-latest]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node_version }}
+      - name: npm install
+        run: npm install
+      - name: npm run test
+        run: npm run test
+      - name: npm run test:coverage
+        if: matrix.node_version == 12 && matrix.os == 'ubuntu-latest'
+        run: npm run test:coverage
+      - name: Upload coverage to Coveralls
+        if: matrix.node_version == 12 && matrix.os == 'ubuntu-latest'
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

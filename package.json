@@ -9,7 +9,8 @@
   "scripts": {
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "elint lint \"src/**/*.js\" \"test/**/*.js\" index.js --fix",
-    "test:unit": "mocha \"test/**/*.js\"",
+    "test:unit": "NODE_ENV=testing nyc --reporter=html --reporter=text mocha",
+    "test:coverage": "nyc report --reporter=lcovonly",
     "beforecommit": "elint lint commit"
   },
   "repository": {
