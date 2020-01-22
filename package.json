@@ -58,7 +58,7 @@
     "eazydict-youdao": "^2.1.0",
     "filesize": "^6.0.0",
     "fs-extra": "^8.0.1",
-    "inquirer": "^7.0.1",
+    "inquirer": "^7.0.3",
     "js-yaml": "^3.13.1",
     "moment": "^2.24.0",
     "npmi": "^4.0.0",
