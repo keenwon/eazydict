@@ -68,7 +68,7 @@
     "string-break": "^1.2.0",
     "string-width": "^4.2.0",
     "unicons": "^0.0.3",
-    "update-notifier": "^4.0.0"
+    "update-notifier": "^4.1.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
