@@ -16,25 +16,13 @@ const {
  * 主程序
  */
 program
-  .usage('<words...>')
   .description('简单易用的命令行词典 https://github.com/keenwon/eazydict')
-  .option('-s, --save', '查询单词，同时保存到生词本')
-  .option('-r, --raw', '不转换为小写，查询原始的输入值')
-  .action(function (...argus) {
-    const words = argus.slice(0, -1);
-    const options = {
-      save: program.save || false,
-      raw: program.raw || false
-    };
-
-    lookup(words, options);
-  });
 
 /**
  * 查询
  */
 program
-  .command('lookup <words...>')
+  .command('lookup <words...>', { isDefault: true })
   .alias('l')
   .option('-s, --save', '查询单词，同时保存到生词本')
   .option('-r, --raw', '不转换为小写，查询原始的输入值')
@@ -147,19 +135,9 @@ program.on('--help', function () {
   console.log('');
 });
 
-program.parse(process.argv);
-
-function showHelp() {
-  // 没有输入任何参数
-  if (process.argv.length === 2) {
-    return true;
-  }
-
-  const argus = process.argv.slice(2);
-
-  return argus.every(item => item.startsWith('-'));
+if (!process.argv.slice(2).length) {
+  program.outputHelp()
+  process.exit(0)
 }
 
-if (showHelp()) {
-  program.help();
-}
+program.parse(process.argv)
