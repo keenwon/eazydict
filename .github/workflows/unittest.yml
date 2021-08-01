@@ -3,7 +3,7 @@ name: unittest
 on:
   push:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
 
 jobs:
   test:
@@ -14,7 +14,6 @@ jobs:
         node_version: [8, 16]
         os: [ubuntu-latest, macOS-latest]
     steps:
-
       - uses: actions/checkout@v2
 
       - name: Use Node.js ${{ matrix.node_version }}
@@ -29,11 +28,11 @@ jobs:
         run: npm run test
 
       - name: npm run test:coverage
-        if: matrix.node_version == 12 && matrix.os == 'ubuntu-latest'
+        if: matrix.node_version == 16 && matrix.os == 'ubuntu-latest'
         run: npm run test:coverage
 
       - name: Upload coverage to Codecov
-        if: matrix.node_version == 12 && matrix.os == 'ubuntu-latest'
+        if: matrix.node_version == 16 && matrix.os == 'ubuntu-latest'
         uses: codecov/codecov-action@v2
         with:
           token: ${{secrets.CODECOV_TOKEN}}
