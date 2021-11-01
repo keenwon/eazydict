@@ -67,7 +67,7 @@
     "sequelize": "^6.6.5",
     "sqlite3": "^5.0.2",
     "string-break": "^1.2.0",
-    "string-width": "^4.2.2",
+    "string-width": "^4.2.3",
     "unicons": "^0.0.3",
     "update-notifier": "^5.1.0"
   },
