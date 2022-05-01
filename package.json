@@ -50,7 +50,7 @@
     "blessed": "^0.1.81",
     "chalk": "^4.1.2",
     "chalk-animation": "^2.0.2",
-    "cli-table3": "^0.6.1",
+    "cli-table3": "^0.6.2",
     "cli-width": "^4.0.0",
     "commander": "^9.2.0",
     "debug": "^4.3.4",
