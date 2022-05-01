@@ -64,7 +64,7 @@
     "moment": "^2.29.2",
     "npmi": "^4.0.0",
     "ora": "^5.4.1",
-    "sequelize": "^6.17.0",
+    "sequelize": "^6.19.0",
     "sqlite3": "^5.0.6",
     "string-break": "^1.2.0",
     "string-width": "^4.2.3",
