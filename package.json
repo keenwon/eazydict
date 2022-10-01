@@ -57,7 +57,7 @@
     "eazydict-bing": "^2.1.0",
     "eazydict-google": "^2.1.0",
     "eazydict-youdao": "^2.1.0",
-    "filesize": "^8.0.7",
+    "filesize": "^10.0.5",
     "fs-extra": "^10.1.0",
     "inquirer": "^9.1.1",
     "js-yaml": "^4.1.0",
