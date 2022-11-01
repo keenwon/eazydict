@@ -65,7 +65,7 @@
     "npmi": "^4.0.0",
     "ora": "^5.4.1",
     "sequelize": "^6.25.3",
-    "sqlite3": "^5.1.1",
+    "sqlite3": "^5.1.2",
     "string-break": "^1.2.0",
     "string-width": "^4.2.3",
     "unicons": "^0.0.3",
