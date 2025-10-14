@@ -74,7 +74,7 @@
   "devDependencies": {
     "chai": "^4.3.7",
     "elint": "^2.0.0-alpha.3",
-    "elint-preset-kw": "^1.9.0",
+    "elint-preset-kw": "^2.2.0",
     "mocha": "^10.4.0",
     "nyc": "^15.1.0"
   }
